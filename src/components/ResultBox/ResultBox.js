@@ -1,4 +1,5 @@
 import React from 'react';
+import './ResultBox.css';
 
 const ResultBox = () => {
   return (
