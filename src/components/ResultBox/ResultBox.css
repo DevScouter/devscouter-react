@@ -1,0 +1,23 @@
+.result-box {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+}
+
+.result-text,
+.result-link {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #113f67;
+    line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+    .result-box {
+        max-width: 90%;
+    }
+}
