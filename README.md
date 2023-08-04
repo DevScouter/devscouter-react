@@ -19,3 +19,13 @@ This is the React frontend for the DevScouter project.
     ```
 
     This will start the server on port 3000.
+
+## Smoke Tests
+
+- Run the smoke tests
+
+    ``` bash
+    npm test SmokeTest
+    ```
+
+    This will run the smoke tests to see if the components render.
