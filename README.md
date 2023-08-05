@@ -29,3 +29,13 @@ This is the React frontend for the DevScouter project.
     ```
 
     This will run the smoke tests to see if the components render.
+
+## Unit Tests
+
+- Run the unit tests
+
+    ``` bash
+    npm test UnitTest
+    ```
+
+    This will run the unit tests for API calls and other functions.
