@@ -6,6 +6,8 @@ This is the React frontend for the DevScouter project.
 
 - Latest LTS (or stable) version of [Node.js](https://nodejs.org/en/) is required. (v18.17.0 at the time of writing)
 
+- `.env` file is required in the root directory. This file should contain the API URL for the backend server.
+
 - Install dependencies
 
     ``` bash
