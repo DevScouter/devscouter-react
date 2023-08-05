@@ -10,12 +10,24 @@ export const fetchUserData = async (username) => {
             body: JSON.stringify(data),
         });
 
-        if (!response.ok) { throw new Error('Request failed'); } // TODO: handle error
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
 
         const responseData = await response.json();
         return responseData;
     } catch (error) {
-        console.error('Error:', error);
-        throw new Error('An error occurred while processing your request.'); // TODO: handle error
+        console.error(error);
+        switch (error.message) {
+            case '400':
+                alert('User does not exist. Check the spelling and try again.');
+                break;
+            case '500':
+                alert('Something went wrong with the server. Please try again later.');
+                break;
+            default:
+                alert('An error occurred. Please try again later.');
+                break;
+        }
     }
 };

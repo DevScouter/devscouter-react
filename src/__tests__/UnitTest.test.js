@@ -9,4 +9,18 @@ test('updates input value on change', () => {
     expect(inputElement.value).toBe('testuser');
 });
 
-// TODO: Add empty username test
+test('displays alert when username is empty', () => {
+    render(<SearchBox />);
+    const buttonElement = screen.getByTestId('submit-button');
+    fireEvent.click(buttonElement);
+    expect(window.alert).toBeCalledWith('Please enter a username.');
+});
+
+test('displays alert when user does not exist', async () => {
+    render(<SearchBox />);
+    const inputElement = screen.getByTestId('username-input');
+    fireEvent.change(inputElement, { target: { value: 'non-exist-username' } });
+    const buttonElement = screen.getByTestId('submit-button');
+    fireEvent.click(buttonElement);
+    await waitFor(() => expect(window.alert).toBeCalledWith('User does not exist. Check the spelling and try again.'));
+});

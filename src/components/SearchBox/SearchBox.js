@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ResultBox from '../ResultBox/ResultBox';
+import ResultBox from './ResultBox/ResultBox';
 import { fetchUserData } from './SearchBoxApi';
 
 const SearchBox = () => {
@@ -19,14 +19,18 @@ const SearchBox = () => {
     setIsLoading(true); // TODO: add loading spinner
 
     try {
-      const responseData = await fetchUserData(username);
-      setResponseMessage(JSON.stringify(responseData, null, 2));
-      setShowResultBox(true);
+      const formattedUsername = username.trim().toLowerCase();
+      const responseData = await fetchUserData(formattedUsername);
+      if (responseData) {
+        setResponseMessage(JSON.stringify(responseData, null, 2));
+        setShowResultBox(true);
+      }
     } catch (error) {
-      alert('The user you are looking for does not exist.');
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
+
   };
 
   return (
@@ -52,6 +56,7 @@ const SearchBox = () => {
         />
         <button
           id="submit-button"
+          data-testid="submit-button"
           className="form-button"
           type="submit">
           Submit

@@ -34,14 +34,13 @@ class ResultBox extends Component {
 
     if (responseMessage) {
       const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
-      const languagesString = Object.values(languages).join(', '); // handle for not enough languages to analyze
 
       this.setState({
-        techStack: stack || '',
-        expertLanguages: languagesString || '',
-        githubActivity: contributions || '',
-        expertise: expertise || '',
-        yearsActive: years_active || '',
+        techStack: stack ?? 'No stack found',
+        expertLanguages: languages ? Object.values(languages).join(', ') : 'No languages found',
+        githubActivity: contributions ?? 'No GitHub activity found',
+        expertise: expertise ?? 'No expertise found',
+        yearsActive: years_active ?? 'No years active found',
       });
 
       this.profileLink = this.makeProfileLink();

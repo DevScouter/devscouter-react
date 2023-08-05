@@ -2,22 +2,22 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import App from '../components/App';
 import SearchBox from '../components/SearchBox/SearchBox';
-import ResultBox from '../components/ResultBox/ResultBox';
+import ResultBox from '../components/SearchBox/ResultBox/ResultBox';
+
+const checkTextAfterRender = (component, text) => {
+    render(component);
+    const textElement = screen.getByText(new RegExp(text, 'i'));
+    expect(textElement).toBeInTheDocument();
+};
 
 test('renders App', () => {
-    render(<App />);
-    const linkElement = screen.getByText(/DevScouter - GitHub User Search/i);
-    expect(linkElement).toBeInTheDocument();
+    checkTextAfterRender(<App />, 'DevScouter');
 });
 
 test('renders SearchBox', () => {
-    render(<SearchBox />);
-    const linkElement = screen.getByText(/Username:/i);
-    expect(linkElement).toBeInTheDocument();
+    checkTextAfterRender(<SearchBox />, 'Username:');
 });
 
-test('renders ResultBox', () => { // TODO: Fix this test
-    render(<ResultBox />);
-    const linkElement = screen.getByText(/Tech Stack/i);
-    expect(linkElement).toBeInTheDocument();
+test('renders ResultBox', () => {
+    checkTextAfterRender(<ResultBox />, 'Tech Stack');
 });
