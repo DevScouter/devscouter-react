@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ResultBox from './ResultBox/ResultBox';
+import LoadingModal from './LoadingModal/LoadingModal';
 import { fetchUserData } from './SearchBoxApi';
 
 const SearchBox = () => {
@@ -63,7 +64,9 @@ const SearchBox = () => {
         </button>
       </form>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading &&
+        <LoadingModal />
+      }
       {showResultBox && (
         <ResultBox
           username={username}
