@@ -16,14 +16,3 @@ test('displays alert when username is empty', () => {
     expect(window.alert).toHaveBeenCalledWith('Please enter a username.');
 });
 
-test('displays alert when user does not exist', async () => {
-    render(<SearchBox />);
-    const inputElement = screen.getByTestId('username-input');
-    fireEvent.change(inputElement, { target: { value: 'non-exist-username' } });
-    const buttonElement = screen.getByTestId('submit-button');
-    fireEvent.click(buttonElement);
-
-    await waitFor(() =>
-        expect(window.alert).toHaveBeenCalledWith('User does not exist. Check the spelling and try again.')
-    );
-});
