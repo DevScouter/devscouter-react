@@ -16,7 +16,7 @@ test('renders SearchBox', () => {
     expect(linkElement).toBeInTheDocument();
 });
 
-test('renders ResultBox', () => {
+test('renders ResultBox', () => { // TODO: Fix this test
     render(<ResultBox />);
     const linkElement = screen.getByText(/Tech Stack/i);
     expect(linkElement).toBeInTheDocument();

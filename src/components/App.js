@@ -1,6 +1,5 @@
 import './App.css';
 import SearchBox from './SearchBox/SearchBox';
-import ResultBox from './ResultBox/ResultBox';
 
 function App() {
   return (
@@ -9,7 +8,6 @@ function App() {
         DevScouter - GitHub User Search
       </header>
       <SearchBox />
-      <ResultBox />
     </div>
   );
 }
