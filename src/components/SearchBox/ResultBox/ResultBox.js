@@ -33,17 +33,21 @@ class ResultBox extends Component {
     const { responseMessage } = this.props;
 
     if (responseMessage) {
-      const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
+      try {
+        const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
 
-      this.setState({
-        techStack: stack ?? 'No stack found',
-        expertLanguages: languages ? Object.values(languages).join(', ') : 'No languages found',
-        githubActivity: contributions ?? 'No GitHub activity found',
-        expertise: expertise ?? 'No expertise found',
-        yearsActive: years_active ?? 'No years active found',
-      });
+        this.setState({
+          techStack: stack ?? 'No stack found',
+          expertLanguages: languages ? Object.values(languages).join(', ') : 'No languages found',
+          githubActivity: contributions ?? 'No GitHub activity found',
+          expertise: expertise ?? 'No expertise found',
+          yearsActive: years_active ?? 'No years active found',
+        });
 
-      this.profileLink = this.makeProfileLink();
+        this.profileLink = this.makeProfileLink();
+      } catch (error) {
+        console.error('Error parsing response message:', error);
+      }
     }
   }
 
