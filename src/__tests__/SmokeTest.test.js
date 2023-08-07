@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import App from '../components/App';
-import SearchBox from '../components/SearchBox/SearchBox';
-import ResultBox from '../components/SearchBox/ResultBox/ResultBox';
-import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
 import DateBox from '../components/DateBox/DateBox';
 import DatePair from '../components/DateBox/DatePair/DatePair';
 import DateResult from '../components/DateBox/DateResult/DateResult';
+import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
+import SearchBox from '../components/SearchBox/SearchBox';
+import SearchResult from '../components/SearchBox/SearchResult/SearchResult';
 
 const checkTextAfterRender = (component, text) => {
     render(component);
@@ -20,6 +20,12 @@ const checkImageAfterRender = (component, src) => {
     expect(imageElement).toBeInTheDocument();
 };
 
+const checkPlaceholderAfterRender = (component, placeholder) => {
+    render(component);
+    const inputElement = screen.getByPlaceholderText(placeholder);
+    expect(inputElement).toBeInTheDocument();
+};
+
 test('renders App', () => {
     checkTextAfterRender(<App />, 'DevScouter');
 });
@@ -28,16 +34,12 @@ test('renders SearchBox', () => {
     checkTextAfterRender(<SearchBox />, 'Username:');
 });
 
-test('renders ResultBox', () => {
-    checkTextAfterRender(<ResultBox />, 'Tech Stack');
+test('renders SearchResult', () => {
+    checkTextAfterRender(<SearchResult />, 'Tech Stack');
 });
 
 test('renders DateBox', () => {
     checkTextAfterRender(<DateBox />, 'Years of Experience');
-});
-
-test('renders DatePair', () => {
-    checkTextAfterRender(<DatePair />, 'Date Pair');
 });
 
 test('renders DateResult', () => {
@@ -46,4 +48,8 @@ test('renders DateResult', () => {
 
 test('renders LoadingModal', () => {
     checkImageAfterRender(<LoadingModal />, 'loading');
+});
+
+test('renders DatePair', () => {
+    checkPlaceholderAfterRender(<DatePair />, 'Start Date');
 });
