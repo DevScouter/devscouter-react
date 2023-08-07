@@ -1,4 +1,4 @@
-.result-box {
+.search-result {
     max-width: 600px;
     margin: 0 auto;
     background-color: #fff;
@@ -17,7 +17,7 @@
 }
 
 @media (max-width: 600px) {
-    .result-box {
+    .search-result {
         max-width: 90%;
     }
 }

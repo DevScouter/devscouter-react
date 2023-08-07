@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import App from '../components/App';
 import SearchBox from '../components/SearchBox/SearchBox';
-import ResultBox from '../components/SearchBox/ResultBox/ResultBox';
+import SearchResult from '../components/SearchBox/SearchResult/SearchResult';
 import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
 import DateBox from '../components/DateBox/DateBox';
 import DatePair from '../components/DateBox/DatePair/DatePair';
@@ -34,8 +34,8 @@ test('renders SearchBox', () => {
     checkTextAfterRender(<SearchBox />, 'Username:');
 });
 
-test('renders ResultBox', () => {
-    checkTextAfterRender(<ResultBox />, 'Tech Stack');
+test('renders SearchResult', () => {
+    checkTextAfterRender(<SearchResult />, 'Tech Stack');
 });
 
 test('renders DateBox', () => {

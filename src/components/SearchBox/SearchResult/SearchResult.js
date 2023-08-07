@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './ResultBox.css';
+import './SearchResult.css';
 
-class ResultBox extends Component {
+class SearchResult extends Component {
   constructor(props) {
     super(props);
 
@@ -55,7 +55,7 @@ class ResultBox extends Component {
     const { techStack, expertLanguages, githubActivity, expertise, yearsActive } = this.state;
 
     return (
-      <div className="result-box">
+      <div className="search-result">
         <p className="result-text"> Tech Stack : {techStack}</p>
         <p className="result-text"> Expert Languages : {expertLanguages}</p>
         <p className="result-text"> GitHub Activity : {githubActivity}</p>
@@ -69,4 +69,4 @@ class ResultBox extends Component {
   }
 }
 
-export default ResultBox;
+export default SearchResult;

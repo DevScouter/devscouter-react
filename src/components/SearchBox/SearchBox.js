@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ResultBox from './ResultBox/ResultBox';
+import SearchResult from './SearchResult/SearchResult';
 import LoadingModal from './LoadingModal/LoadingModal';
 import { fetchUserData } from './SearchBoxApi';
 
@@ -7,7 +7,7 @@ const SearchBox = () => {
   const [username, setUsername] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showResultBox, setShowResultBox] = useState(false);
+  const [showSearchResult, setShowSearchResult] = useState(false);
 
   const handleUsernameSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ const SearchBox = () => {
       const responseData = await fetchUserData(formattedUsername);
       if (responseData) {
         setResponseMessage(JSON.stringify(responseData, null, 2));
-        setShowResultBox(true);
+        setShowSearchResult(true);
       }
     } catch (error) {
       console.error(error);
@@ -67,8 +67,8 @@ const SearchBox = () => {
       {isLoading &&
         <LoadingModal />
       }
-      {showResultBox && (
-        <ResultBox
+      {showSearchResult && (
+        <SearchResult
           username={username}
           responseMessage={responseMessage}
         />
