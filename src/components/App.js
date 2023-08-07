@@ -1,4 +1,5 @@
 import './App.css';
+import DateBox from './DateBox/DateBox';
 import SearchBox from './SearchBox/SearchBox';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
       <header className="App-header">
         DevScouter - GitHub User Search
       </header>
+      <DateBox />
       <SearchBox />
     </div>
   );

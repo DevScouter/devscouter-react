@@ -11,7 +11,7 @@ test('updates input value on change', () => {
 
 test('displays alert when username is empty', () => {
     render(<SearchBox />);
-    const buttonElement = screen.getByTestId('submit-button');
+    const buttonElement = screen.getByTestId('submit-username-button');
     fireEvent.click(buttonElement);
     expect(window.alert).toHaveBeenCalledWith('Please enter a username.');
 });
@@ -23,7 +23,7 @@ const simulateApiError = async (errorType, inputValue) => {
 
     const inputElement = screen.getByTestId('username-input');
     fireEvent.change(inputElement, { target: { value: inputValue } });
-    const buttonElement = screen.getByTestId('submit-button');
+    const buttonElement = screen.getByTestId('submit-username-button');
     fireEvent.click(buttonElement);
 
     await waitFor(() => expect(window.alert).toBeCalled());

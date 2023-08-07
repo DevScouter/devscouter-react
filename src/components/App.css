@@ -7,7 +7,6 @@
     line-height: 1.5;
 }
 
-
 body {
     background-color: #f1f3fd;
 }
@@ -54,6 +53,10 @@ label {
     font-size: 36px;
     font-weight: bolder;
     color: #113f67;
+}
+
+.form-input {
+    margin-right: 10px;
 }
 
 @media (max-width: 600px) {
