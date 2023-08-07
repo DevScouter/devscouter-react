@@ -4,6 +4,9 @@ import App from '../components/App';
 import SearchBox from '../components/SearchBox/SearchBox';
 import ResultBox from '../components/SearchBox/ResultBox/ResultBox';
 import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
+import DateBox from '../components/DateBox/DateBox';
+import DatePair from '../components/DateBox/DatePair/DatePair';
+import DateResult from '../components/DateBox/DateResult/DateResult';
 
 const checkTextAfterRender = (component, text) => {
     render(component);
@@ -27,6 +30,18 @@ test('renders SearchBox', () => {
 
 test('renders ResultBox', () => {
     checkTextAfterRender(<ResultBox />, 'Tech Stack');
+});
+
+test('renders DateBox', () => {
+    checkTextAfterRender(<DateBox />, 'Years of Experience');
+});
+
+test('renders DatePair', () => {
+    checkTextAfterRender(<DatePair />, 'Date Pair');
+});
+
+test('renders DateResult', () => {
+    checkTextAfterRender(<DateResult />, 'Date Result');
 });
 
 test('renders LoadingModal', () => {

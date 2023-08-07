@@ -56,8 +56,8 @@ const SearchBox = () => {
           onChange={(event) => setUsername(event.target.value)}
         />
         <button
-          id="submit-button"
-          data-testid="submit-button"
+          id="submit-username-button"
+          data-testid="submit-username-button"
           className="form-button"
           type="submit">
           Submit
