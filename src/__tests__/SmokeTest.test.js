@@ -20,6 +20,12 @@ const checkImageAfterRender = (component, src) => {
     expect(imageElement).toBeInTheDocument();
 };
 
+const checkPlaceholderAfterRender = (component, placeholder) => {
+    render(component);
+    const inputElement = screen.getByPlaceholderText(placeholder);
+    expect(inputElement).toBeInTheDocument();
+};
+
 test('renders App', () => {
     checkTextAfterRender(<App />, 'DevScouter');
 });
@@ -36,14 +42,14 @@ test('renders DateBox', () => {
     checkTextAfterRender(<DateBox />, 'Years of Experience');
 });
 
-test('renders DatePair', () => {
-    checkTextAfterRender(<DatePair />, 'Date Pair');
-});
-
 test('renders DateResult', () => {
     checkTextAfterRender(<DateResult />, 'Date Result');
 });
 
 test('renders LoadingModal', () => {
     checkImageAfterRender(<LoadingModal />, 'loading');
+});
+
+test('renders DatePair', () => {
+    checkPlaceholderAfterRender(<DatePair />, 'Start Date');
 });
