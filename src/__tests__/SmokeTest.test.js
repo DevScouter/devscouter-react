@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import App from '../components/App';
-import SearchBox from '../components/SearchBox/SearchBox';
-import SearchResult from '../components/SearchBox/SearchResult/SearchResult';
-import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
 import DateBox from '../components/DateBox/DateBox';
 import DatePair from '../components/DateBox/DatePair/DatePair';
 import DateResult from '../components/DateBox/DateResult/DateResult';
+import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
+import SearchBox from '../components/SearchBox/SearchBox';
+import SearchResult from '../components/SearchBox/SearchResult/SearchResult';
 
 const checkTextAfterRender = (component, text) => {
     render(component);

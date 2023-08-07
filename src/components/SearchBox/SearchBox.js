@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SearchResult from './SearchResult/SearchResult';
 import LoadingModal from './LoadingModal/LoadingModal';
+import SearchResult from './SearchResult/SearchResult';
 import { fetchUserData } from './SearchBoxApi';
 
 const SearchBox = () => {
