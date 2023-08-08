@@ -1,72 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './SearchResult.css';
 
-class SearchResult extends Component {
-  constructor(props) {
-    super(props);
+function SearchResult(props) {
+  const [responseText, setResponseText] = useState({
+    techStack: 'No stack found',
+    expertLanguages: 'No languages found',
+    githubActivity: 'No GitHub activity found',
+    expertise: 'No expertise found',
+    yearsActive: 'No years active found',
+    profileLink: 'No profile link found',
+  });
 
-    this.state = {
-      techStack: '',
-      expertLanguages: '',
-      githubActivity: '',
-      expertise: '',
-      yearsActive: '',
-    };
-  }
+  const makeProfileLink = useCallback(() => `https://github.com/${props.username}`, [props.username]);
 
-  componentDidMount() {
-    this.parseResponseMessage();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.responseMessage !== prevProps.responseMessage) {
-      this.parseResponseMessage();
-    }
-  }
-
-  makeProfileLink() {
-    const { username } = this.props;
-    return `https://github.com/${username}`;
-  }
-
-  parseResponseMessage() {
-    const { responseMessage } = this.props;
+  const parseResponseMessage = useCallback(() => {
+    const responseMessage = props.responseMessage;
 
     if (responseMessage) {
       try {
         const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
 
-        this.setState({
-          techStack: stack ?? 'No stack found',
-          expertLanguages: languages ? Object.values(languages).join(', ') : 'No languages found',
-          githubActivity: contributions ?? 'No GitHub activity found',
-          expertise: expertise ?? 'No expertise found',
-          yearsActive: years_active ?? 'No years active found',
-        });
-
-        this.profileLink = this.makeProfileLink();
+        setResponseText(prevState => ({
+          ...prevState,
+          techStack: stack || prevState.techStack,
+          expertLanguages: languages ? Object.values(languages).join(', ') : prevState.expertLanguages,
+          githubActivity: contributions || prevState.githubActivity,
+          expertise: expertise || prevState.expertise,
+          yearsActive: years_active || prevState.yearsActive,
+          profileLink: makeProfileLink(),
+        }));
       } catch (error) {
         console.error('Error parsing response message:', error);
       }
     }
-  }
+  }, [props, makeProfileLink]);
 
-  render() {
-    const { techStack, expertLanguages, githubActivity, expertise, yearsActive } = this.state;
+  useEffect(() => {
+    parseResponseMessage();
+  }, [parseResponseMessage]);
 
-    return (
-      <div className="search-result">
-        <p className="result-text"> Tech Stack : {techStack}</p>
-        <p className="result-text"> Expert Languages : {expertLanguages}</p>
-        <p className="result-text"> GitHub Activity : {githubActivity}</p>
-        <p className="result-text"> Expertise : {expertise}</p>
-        <p className="result-text"> Years Active : {yearsActive}</p>
-        <p className="result-link"> GitHub Profile Link :
-          <a href={this.profileLink}> {this.profileLink} </a>
-        </p>
-      </div>
-    );
-  }
+  return (
+    <div className="search-result">
+      <p className="result-text"> Tech Stack: {responseText.techStack}</p>
+      <p className="result-text"> Expert Languages: {responseText.expertLanguages}</p>
+      <p className="result-text"> GitHub Activity: {responseText.githubActivity}</p>
+      <p className="result-text"> Expertise: {responseText.expertise}</p>
+      <p className="result-text"> Years Active: {responseText.yearsActive}</p>
+      <p className="result-link"> GitHub Profile Link:
+        <a href={responseText.profileLink}> {responseText.profileLink} </a>
+      </p>
+    </div>
+  );
 }
 
 export default SearchResult;
