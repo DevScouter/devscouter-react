@@ -17,7 +17,7 @@ const SearchBox = () => {
       return;
     }
 
-    setIsLoading(true); // TODO: add loading spinner
+    setIsLoading(true);
 
     try {
       const formattedUsername = username.trim().toLowerCase();
@@ -63,10 +63,7 @@ const SearchBox = () => {
           Submit
         </button>
       </form>
-
-      {isLoading &&
-        <LoadingModal />
-      }
+      {isLoading && <LoadingModal />}
       {showSearchResult && (
         <SearchResult
           username={username}
