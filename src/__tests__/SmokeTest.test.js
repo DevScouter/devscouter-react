@@ -22,8 +22,8 @@ const checkImageAfterRender = (component, src) => {
 
 const checkPlaceholderAfterRender = (component, placeholder) => {
     render(component);
-    const inputElement = screen.getByPlaceholderText(placeholder);
-    expect(inputElement).toBeInTheDocument();
+    const inputElements = screen.queryAllByPlaceholderText(placeholder);
+    expect(inputElements.length).toBeGreaterThan(0);
 };
 
 test('renders App', () => {
@@ -47,7 +47,7 @@ test('renders LoadingModal', () => {
 });
 
 test('renders DatePair', () => {
-    checkPlaceholderAfterRender(<DatePair />, 'Start Date');
+    checkPlaceholderAfterRender(<DatePair />, 'YYYY-MM');
 });
 
 describe('DateResult component', () => {
