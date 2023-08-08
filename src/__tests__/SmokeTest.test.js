@@ -42,14 +42,21 @@ test('renders DateBox', () => {
     checkTextAfterRender(<DateBox />, 'Years of Experience');
 });
 
-test('renders DateResult', () => {
-    checkTextAfterRender(<DateResult />, 'Date Result');
-});
-
 test('renders LoadingModal', () => {
     checkImageAfterRender(<LoadingModal />, 'loading');
 });
 
 test('renders DatePair', () => {
     checkPlaceholderAfterRender(<DatePair />, 'Start Date');
+});
+
+describe('DateResult component', () => {
+    it('renders DateResult', () => {
+        const experiences = ['1 years and 2 months', '3 years and 4 months'];
+        const { getByText } = render(<DateResult experiences={experiences} />);
+
+        expect(getByText('Experiences')).toBeInTheDocument();
+        expect(getByText('1 years and 2 months')).toBeInTheDocument();
+        expect(getByText('3 years and 4 months')).toBeInTheDocument();
+    });
 });

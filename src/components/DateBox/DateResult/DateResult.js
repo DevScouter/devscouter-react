@@ -1,9 +1,14 @@
 import React from 'react';
 
-const DateResult = () => {
+const DateResult = ({ experiences }) => {
     return (
         <div className="date-result">
-            Date Result
+            <h2> Experiences </h2>
+            <ul>
+                {experiences.map((experience, index) => (
+                    <li key={index}>{experience}</li>
+                ))}
+            </ul>
         </div>
     );
 }
