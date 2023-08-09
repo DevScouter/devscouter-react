@@ -46,6 +46,16 @@ const DateBox = () => {
         const endYear = parseInt(endDate.substring(0, 4), 10);
         const endMonth = parseInt(endDate.substring(4, 6), 10);
 
+        if (startYear < 1900 || endYear < 1900) {
+          alert('Please check your years. (YYYYMM)');
+          return [];
+        }
+
+        if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) {
+          alert('Please check your months. (YYYYMM)');
+          return [];
+        }
+
         const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
         const totalYears = Math.floor(totalMonths / 12);
         const totalMonthsRemainder = totalMonths % 12;
