@@ -3,8 +3,13 @@ import LoadingModal from './LoadingModal/LoadingModal';
 import SearchResult from './SearchResult/SearchResult';
 import { fetchUserData } from './SearchBoxApi';
 
+function makeProfileLink(username) {
+  return `https://github.com/${username}`;
+}
+
 const SearchBox = () => {
   const [username, setUsername] = useState('');
+  const [profileLink, setProfileLink] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showSearchResult, setShowSearchResult] = useState(false);
@@ -21,13 +26,16 @@ const SearchBox = () => {
 
     try {
       const formattedUsername = username.trim().toLowerCase();
+      const formattedProfileLink = makeProfileLink(formattedUsername);
       const responseData = await fetchUserData(formattedUsername);
       if (responseData) {
         setResponseMessage(JSON.stringify(responseData, null, 2));
+        setProfileLink(formattedProfileLink);
         setShowSearchResult(true);
+      } else {
+        setShowSearchResult(false);
       }
     } catch (error) {
-      setShowSearchResult(false);
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -69,6 +77,7 @@ const SearchBox = () => {
         <SearchResult
           username={username}
           responseMessage={responseMessage}
+          profileLink={profileLink}
         />
       )}
     </div>

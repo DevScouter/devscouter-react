@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchResult.css';
 
 const defaultResponseText = {
@@ -10,9 +10,8 @@ const defaultResponseText = {
   profileLink: 'No profile link found',
 };
 
-function SearchResult({ responseMessage, username }) {
+function SearchResult({ responseMessage, profileLink }) {
   const [responseText, setResponseText] = useState(defaultResponseText);
-  const makeProfileLink = useCallback(() => `https://github.com/${username}`, [username]);
 
   function parseResponse(responseMessage) {
     try {
@@ -35,10 +34,9 @@ function SearchResult({ responseMessage, username }) {
       const parsedResponse = parseResponse(responseMessage);
       setResponseText({
         ...parsedResponse,
-        profileLink: makeProfileLink(),
       });
     }
-  }, [responseMessage, makeProfileLink]);
+  }, [responseMessage]);
 
   return (
     <div className="search-result">
@@ -48,7 +46,7 @@ function SearchResult({ responseMessage, username }) {
       <p className="result-text"> Expertise: {responseText.expertise}</p>
       <p className="result-text"> Years Active: {responseText.yearsActive}</p>
       <p className="result-link"> GitHub Profile Link:
-        <a href={responseText.profileLink}> {responseText.profileLink} </a>
+        <a href={profileLink}> {profileLink} </a>
       </p>
     </div>
   );
