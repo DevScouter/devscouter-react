@@ -20,15 +20,14 @@ function SearchResult(props) {
       try {
         const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
 
-        setResponseText(prevState => ({
-          ...prevState,
-          techStack: stack || prevState.techStack,
-          expertLanguages: languages ? Object.values(languages).join(', ') : prevState.expertLanguages,
-          githubActivity: contributions || prevState.githubActivity,
-          expertise: expertise || prevState.expertise,
-          yearsActive: years_active || prevState.yearsActive,
+        setResponseText({
+          techStack: stack || 'No stack found',
+          expertLanguages: languages ? Object.values(languages).join(', ') : 'No languages found',
+          githubActivity: contributions || 'No GitHub activity found',
+          expertise: expertise || 'No expertise found',
+          yearsActive: years_active || 'No years active found',
           profileLink: makeProfileLink(),
-        }));
+        });
       } catch (error) {
         console.error('Error parsing response message:', error);
       }

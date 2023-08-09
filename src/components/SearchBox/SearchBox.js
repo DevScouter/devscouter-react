@@ -27,6 +27,7 @@ const SearchBox = () => {
         setShowSearchResult(true);
       }
     } catch (error) {
+      setShowSearchResult(false);
       console.error(error);
     } finally {
       setIsLoading(false);
