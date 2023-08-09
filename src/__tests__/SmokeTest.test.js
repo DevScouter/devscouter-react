@@ -52,11 +52,12 @@ test('renders DatePair', () => {
 
 describe('DateResult component', () => {
     it('renders DateResult', () => {
-        const experiences = ['1 years and 2 months', '3 years and 4 months'];
+        const experiences = ['1 year(s) and 2 month(s)', '3 year(s) and 4 month(s)'];
         const { getByText } = render(<DateResult experiences={experiences} />);
 
         expect(getByText('Experiences')).toBeInTheDocument();
-        expect(getByText('1 years and 2 months')).toBeInTheDocument();
-        expect(getByText('3 years and 4 months')).toBeInTheDocument();
+        expect(getByText('1 year(s) and 2 month(s)')).toBeInTheDocument();
+        expect(getByText('3 year(s) and 4 month(s)')).toBeInTheDocument();
+        expect(getByText('Total Experience')).toBeInTheDocument();
     });
 });

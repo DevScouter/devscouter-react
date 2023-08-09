@@ -30,7 +30,10 @@ const DatePair = () => {
     };
 
     return (
-        <div className="date-pair">
+        <div
+            className="date-pair"
+            data-testid="date-pair"
+        >
             <input
                 id="start-date-input"
                 data-testid="start-date-input"

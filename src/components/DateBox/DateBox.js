@@ -5,6 +5,7 @@ import DateResult from './DateResult/DateResult';
 const DateBox = () => {
   const [datePairCount, setDatePairCount] = useState(1);
   const [experiences, setExperiences] = useState([]);
+  const [totalExperience, setTotalExperience] = useState('');
   const [showDateResult, setShowDateResult] = useState(false);
 
   const addDatePair = () => {
@@ -31,13 +32,13 @@ const DateBox = () => {
         const startDate = array[index];
         const endDate = array[index + 1];
 
-        if (startDate >= endDate) {
-          alert('Start date must be before end date.');
+        if (startDate.length !== 6 || endDate.length !== 6) {
+          alert('Please enter a valid date. (YYYYMM)');
           return [];
         }
 
-        if (startDate.length !== 6 || endDate.length !== 6) {
-          alert('Please enter a valid date. (YYYYMM)');
+        if (startDate >= endDate) {
+          alert('Start date must be before end date.');
           return [];
         }
 
@@ -59,7 +60,7 @@ const DateBox = () => {
         const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
         const totalYears = Math.floor(totalMonths / 12);
         const totalMonthsRemainder = totalMonths % 12;
-        const totalExperience = `${totalYears} years and ${totalMonthsRemainder} months`;
+        const totalExperience = `${totalYears} year(s) and ${totalMonthsRemainder} month(s)`;
 
         setShowDateResult(true);
         return [...pairs, totalExperience];
@@ -67,6 +68,22 @@ const DateBox = () => {
       return pairs;
     }, []);
 
+    const calculateTotal = (datePairs, index) => datePairs.reduce((sum, experience) => {
+      const value = experience.split(' year(s) and ')[index];
+      return sum + parseInt(value);
+    }, 0);
+
+    const calculateTotalExperience = datePairs => {
+      const totalYears = calculateTotal(datePairs, 0);
+      const totalMonths = calculateTotal(datePairs, 1);
+      const totalYearsWithRemainder = totalYears + Math.floor(totalMonths / 12);
+      const totalMonthsWithRemainder = totalMonths % 12;
+      return `${totalYearsWithRemainder} year(s) and ${totalMonthsWithRemainder} month(s)`;
+    };
+
+    const totalExperience = calculateTotalExperience(datePairs);
+    setTotalExperience(totalExperience);
+    setTotalExperience(totalExperience);
     setExperiences(datePairs);
   };
 
@@ -87,7 +104,7 @@ const DateBox = () => {
         >
           Add
         </button>
-        {showDateResult && <DateResult experiences={experiences} />}
+        {showDateResult && <DateResult experiences={experiences} totalExperience={totalExperience} />}
         <button
           id="submit-date-button"
           data-testid="submit-date-button"
