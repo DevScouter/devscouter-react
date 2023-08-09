@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './DateBox.css';
 import DatePair from './DatePair/DatePair';
 import DateResult from './DateResult/DateResult';
 
@@ -102,7 +103,7 @@ const DateBox = () => {
           type="button"
           onClick={addDatePair}
         >
-          Add
+          +
         </button>
         {showDateResult && <DateResult experiences={experiences} totalExperience={totalExperience} />}
         <button

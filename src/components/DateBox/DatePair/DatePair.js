@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './DatePair.css';
 
 const DatePair = () => {
     const [startDate, setStartDate] = useState('');
@@ -61,7 +62,7 @@ const DatePair = () => {
                 type="button"
                 onClick={deleteDatePair}
             >
-                Delete
+                -
             </button>
         </div>
     );
