@@ -1,0 +1,13 @@
+.date-pair {
+    margin-bottom: 10px;
+}
+
+.delete-button {
+    padding: 0 7px;
+    border: none;
+    border-radius: 5px;
+}
+
+.delete-button:hover {
+    background-color: rgb(225, 225, 225);
+}
