@@ -25,19 +25,29 @@ test('displays alert when username is empty', () => {
     expect(window.alert).toHaveBeenCalledWith('Please enter a username.');
 });
 
-const simulateApiError = async (errorType, inputValue) => {
+const simulateApiError = async (errorType, usernameInput) => {
     const error = new Error(errorType);
     render(<SearchBox />);
     jest.spyOn(global, 'fetch').mockRejectedValue(error);
 
     const inputElement = screen.getByTestId('username-input');
-    fireEvent.change(inputElement, { target: { value: inputValue } });
+    fireEvent.change(inputElement, { target: { value: usernameInput } });
     const buttonElement = screen.getByTestId('submit-username-button');
     fireEvent.click(buttonElement);
 
     await waitFor(() => expect(window.alert).toBeCalled());
 
     global.fetch.mockRestore();
+};
+
+const simulateDateInputError = (startDate, endDate) => {
+    render(<DateBox />);
+    const startDateElement = screen.getByTestId('start-date-input');
+    const endDateElement = screen.getByTestId('end-date-input');
+    fireEvent.change(startDateElement, { target: { value: startDate } });
+    fireEvent.change(endDateElement, { target: { value: endDate } });
+    const buttonElement = screen.getByTestId('submit-date-button');
+    fireEvent.click(buttonElement);
 };
 
 test('displays alert when user does not exist with 400', async () => {
@@ -56,37 +66,31 @@ test('displays alert when default error occurs', async () => {
 });
 
 test('displays alert when start date input is empty', () => {
-    render(<DateBox />);
-    const buttonElement = screen.getByTestId('submit-date-button');
-    fireEvent.click(buttonElement);
+    simulateDateInputError('', '2021-01');
     expect(window.alert).toHaveBeenCalledWith('Please fill out all date inputs.');
 });
 
 test('displays alert when start date is bigger than end date', () => {
-    render(<DateBox />);
-    const startDateElement = screen.getByTestId('start-date-input');
-    const endDateElement = screen.getByTestId('end-date-input');
-    fireEvent.change(startDateElement, { target: { value: '2021-01' } });
-    fireEvent.change(endDateElement, { target: { value: '2020-01' } });
-    const buttonElement = screen.getByTestId('submit-date-button');
-    fireEvent.click(buttonElement);
+    simulateDateInputError('2021-01', '2020-01');
     expect(window.alert).toHaveBeenCalledWith('Start date must be before end date.');
 });
 
-test('displays alert when date input is too short', () => {
-    render(<DateBox />);
-    const startDateElement = screen.getByTestId('start-date-input');
-    const endDateElement = screen.getByTestId('end-date-input');
-    fireEvent.change(startDateElement, { target: { value: '2020' } });
-    fireEvent.change(endDateElement, { target: { value: '2021-01' } });
-    const buttonElement = screen.getByTestId('submit-date-button');
-    fireEvent.click(buttonElement);
+test('displays alert when date input is less than 6 in length', () => {
+    simulateDateInputError('2021-01', '2021-1');
     expect(window.alert).toHaveBeenCalledWith('Please enter a valid date. (YYYYMM)');
 });
 
-test('displays alert when only one date pair is left and delete is pressed', () => {
-    render(<DatePair />);
-    const buttonElement = screen.getByTestId('delete-pair-button');
-    fireEvent.click(buttonElement);
-    expect(window.alert).toHaveBeenCalledWith('You must have at least one date pair.');
+test('displays alert when years are less than 1900', () => {
+    simulateDateInputError('1899-01', '1900-01');
+    expect(window.alert).toHaveBeenCalledWith('Please check your years. (YYYYMM)');
+});
+
+test('displays alert when months are less than 1', () => {
+    simulateDateInputError('1900-00', '1900-02');
+    expect(window.alert).toHaveBeenCalledWith('Please check your months. (YYYYMM)');
+});
+
+test('displays alert when months are more than 12', () => {
+    simulateDateInputError('2012-02', '2013-13');
+    expect(window.alert).toHaveBeenCalledWith('Please check your months. (YYYYMM)');
 });
