@@ -94,3 +94,37 @@ test('displays alert when months are more than 12', () => {
     simulateDateInputError('2012-02', '2013-13');
     expect(window.alert).toHaveBeenCalledWith('Please check your months. (YYYYMM)');
 });
+
+test('displays total experience', () => {
+    render(<DateBox />);
+    const startDateElement = screen.getByTestId('start-date-input');
+    const endDateElement = screen.getByTestId('end-date-input');
+    fireEvent.change(startDateElement, { target: { value: '2021-01' } });
+    fireEvent.change(endDateElement, { target: { value: '2021-02' } });
+    const buttonElement = screen.getByTestId('submit-date-button');
+    fireEvent.click(buttonElement);
+    expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) and 1 month(s)');
+});
+
+test('displays total experience with multiple date pairs', () => {
+    render(<DateBox />);
+    const addButtonElement = screen.getByTestId('add-pair-button');
+    fireEvent.click(addButtonElement);
+
+    const datePairs = screen.getAllByTestId('date-pair');
+    const startDateElement1 = datePairs[0].querySelector('[data-testid="start-date-input"]');
+    const endDateElement1 = datePairs[0].querySelector('[data-testid="end-date-input"]');
+
+    const startDateElement2 = datePairs[1].querySelector('[data-testid="start-date-input"]');
+    const endDateElement2 = datePairs[1].querySelector('[data-testid="end-date-input"]');
+
+    fireEvent.change(startDateElement1, { target: { value: '2021-01' } });
+    fireEvent.change(endDateElement1, { target: { value: '2021-02' } });
+
+    fireEvent.change(startDateElement2, { target: { value: '2021-03' } });
+    fireEvent.change(endDateElement2, { target: { value: '2023-04' } });
+
+    const buttonElement = screen.getByTestId('submit-date-button');
+    fireEvent.click(buttonElement);
+    expect(screen.getByTestId('total-experience')).toHaveTextContent('2 year(s) and 2 month(s)');
+});
