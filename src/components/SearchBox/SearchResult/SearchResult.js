@@ -1,43 +1,44 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './SearchResult.css';
 
-function SearchResult(props) {
-  const [responseText, setResponseText] = useState({
-    techStack: 'No stack found',
-    expertLanguages: 'No languages found',
-    githubActivity: 'No GitHub activity found',
-    expertise: 'No expertise found',
-    yearsActive: 'No years active found',
-    profileLink: 'No profile link found',
-  });
+const defaultResponseText = {
+  techStack: 'No stack found',
+  expertLanguages: 'No languages found',
+  githubActivity: 'No GitHub activity found',
+  expertise: 'No expertise found',
+  yearsActive: 'No years active found',
+  profileLink: 'No profile link found',
+};
 
-  const makeProfileLink = useCallback(() => `https://github.com/${props.username}`, [props.username]);
+function SearchResult({ responseMessage, username }) {
+  const [responseText, setResponseText] = useState(defaultResponseText);
+  const makeProfileLink = useCallback(() => `https://github.com/${username}`, [username]);
 
-  const parseResponseMessage = useCallback(() => {
-    const responseMessage = props.responseMessage;
-
-    if (responseMessage) {
-      try {
-        const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
-
-        setResponseText(prevState => ({
-          ...prevState,
-          techStack: stack || prevState.techStack,
-          expertLanguages: languages ? Object.values(languages).join(', ') : prevState.expertLanguages,
-          githubActivity: contributions || prevState.githubActivity,
-          expertise: expertise || prevState.expertise,
-          yearsActive: years_active || prevState.yearsActive,
-          profileLink: makeProfileLink(),
-        }));
-      } catch (error) {
-        console.error('Error parsing response message:', error);
-      }
+  function parseResponse(responseMessage) {
+    try {
+      const { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
+      return {
+        techStack: stack || defaultResponseText.techStack,
+        expertLanguages: languages ? Object.values(languages).join(', ') : defaultResponseText.expertLanguages,
+        githubActivity: contributions || defaultResponseText.githubActivity,
+        expertise: expertise || defaultResponseText.expertise,
+        yearsActive: years_active || defaultResponseText.yearsActive,
+      };
+    } catch (error) {
+      console.error('Error parsing response message:', error);
+      return defaultResponseText;
     }
-  }, [props, makeProfileLink]);
+  }
 
   useEffect(() => {
-    parseResponseMessage();
-  }, [parseResponseMessage]);
+    if (responseMessage) {
+      const parsedResponse = parseResponse(responseMessage);
+      setResponseText({
+        ...parsedResponse,
+        profileLink: makeProfileLink(),
+      });
+    }
+  }, [responseMessage, makeProfileLink]);
 
   return (
     <div className="search-result">
