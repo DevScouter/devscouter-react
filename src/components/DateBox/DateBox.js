@@ -35,12 +35,12 @@ const DateBox = () => {
 
         if (startDate.length !== 6 || endDate.length !== 6) {
           alert('Please enter a valid date. (YYYYMM)');
-          return [];
+          return pairs;
         }
 
         if (startDate >= endDate) {
           alert('Start date must be before end date.');
-          return [];
+          return pairs;
         }
 
         const startYear = parseInt(startDate.substring(0, 4), 10);
@@ -50,12 +50,12 @@ const DateBox = () => {
 
         if (startYear < 1900 || endYear < 1900) {
           alert('Please check your years. (YYYYMM)');
-          return [];
+          return pairs;
         }
 
         if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) {
           alert('Please check your months. (YYYYMM)');
-          return [];
+          return pairs;
         }
 
         const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
