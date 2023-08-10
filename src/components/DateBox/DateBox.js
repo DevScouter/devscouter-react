@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import './DateBox.css';
 import DatePair from './DatePair/DatePair';
 import DateResult from './DateResult/DateResult';
+import langDict from '../LangDict';
 
-const DateBox = () => {
+const DateBox = ({ language }) => {
   const [datePairCount, setDatePairCount] = useState(1);
   const [experiences, setExperiences] = useState([]);
   const [totalExperience, setTotalExperience] = useState('');
@@ -103,7 +104,7 @@ const DateBox = () => {
     <div>
       <form id="date-form" data-testid="date-form" className="search-form">
         <label className="form-label" htmlFor="start-date">
-          Years of Experience:
+          {langDict[language].yearsOfExperience}
         </label>
         {datePairs}
         <button
@@ -123,7 +124,7 @@ const DateBox = () => {
           type="submit"
           onClick={calculateExperience}
         >
-          Submit
+          {langDict[language].submit}
         </button>
       </form>
     </div>
