@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './DatePair.css';
 
-const DatePair = () => {
+const DatePair = ({ onDelete }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
@@ -25,6 +25,7 @@ const DatePair = () => {
 
         if (datePairs.length > 1) {
             datePair.remove();
+            onDelete();
         } else {
             alert('You must have at least one date pair.');
         }
