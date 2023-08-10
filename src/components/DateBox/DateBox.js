@@ -9,13 +9,36 @@ const DateBox = () => {
   const [totalExperience, setTotalExperience] = useState('');
   const [showDateResult, setShowDateResult] = useState(false);
 
+  const datePairs = Array.from({ length: datePairCount }, (_, index) => (
+    <DatePair key={index} onDelete={() => handleDatePairDelete(index)} />
+  ));
+
   const addDatePair = () => {
     setDatePairCount(prevCount => prevCount + 1);
   };
 
-  const datePairs = Array.from({ length: datePairCount }, (_, index) => (
-    <DatePair key={index} />
-  ));
+  const handleDatePairDelete = (index) => {
+    const updatedExperiences = [...experiences];
+    updatedExperiences.splice(index, 1);
+
+    const updatedTotalExperience = calculateTotalExperience(updatedExperiences);
+    setTotalExperience(updatedTotalExperience);
+    setExperiences(updatedExperiences);
+  };
+
+  const calculateTotal = (datePairs, index) => datePairs.reduce((sum, experience) => {
+    const numbers = experience.match(/\d+/g);
+    const value = numbers ? parseInt(numbers[index]) : 0;
+    return sum + value;
+  }, 0);
+
+  const calculateTotalExperience = datePairs => {
+    const totalYears = calculateTotal(datePairs, 0);
+    const totalMonths = calculateTotal(datePairs, 1);
+    const totalYearsWithRemainder = totalYears + Math.floor(totalMonths / 12);
+    const totalMonthsWithRemainder = totalMonths % 12;
+    return `${totalYearsWithRemainder} year(s) and ${totalMonthsWithRemainder} month(s)`;
+  };
 
   const calculateExperience = event => {
     event.preventDefault();
@@ -68,19 +91,6 @@ const DateBox = () => {
       }
       return pairs;
     }, []);
-
-    const calculateTotal = (datePairs, index) => datePairs.reduce((sum, experience) => {
-      const value = experience.split(' year(s) and ')[index];
-      return sum + parseInt(value);
-    }, 0);
-
-    const calculateTotalExperience = datePairs => {
-      const totalYears = calculateTotal(datePairs, 0);
-      const totalMonths = calculateTotal(datePairs, 1);
-      const totalYearsWithRemainder = totalYears + Math.floor(totalMonths / 12);
-      const totalMonthsWithRemainder = totalMonths % 12;
-      return `${totalYearsWithRemainder} year(s) and ${totalMonthsWithRemainder} month(s)`;
-    };
 
     const totalExperience = calculateTotalExperience(datePairs);
     setTotalExperience(totalExperience);
