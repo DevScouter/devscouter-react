@@ -27,33 +27,33 @@ const checkPlaceholderAfterRender = (component, placeholder) => {
 };
 
 test('renders App', () => {
-    checkTextAfterRender(<App />, 'DevScouter');
+    checkTextAfterRender(<App language="en" />, 'DevScouter');
 });
 
 test('renders SearchBox', () => {
-    checkTextAfterRender(<SearchBox />, 'Username:');
+    checkTextAfterRender(<SearchBox language="en" />, 'Username:');
 });
 
 test('renders SearchResult', () => {
-    checkTextAfterRender(<SearchResult />, 'Tech Stack');
+    checkTextAfterRender(<SearchResult language="en" />, 'Tech Stack');
 });
 
 test('renders DateBox', () => {
-    checkTextAfterRender(<DateBox />, 'Years of Experience');
+    checkTextAfterRender(<DateBox language="en" />, 'Years of Experience');
 });
 
 test('renders LoadingModal', () => {
-    checkImageAfterRender(<LoadingModal />, 'loading');
+    checkImageAfterRender(<LoadingModal language="en" />, 'loading');
 });
 
 test('renders DatePair', () => {
-    checkPlaceholderAfterRender(<DatePair />, 'YYYY-MM');
+    checkPlaceholderAfterRender(<DatePair language="en" />, 'YYYY-MM');
 });
 
 describe('DateResult component', () => {
     it('renders DateResult', () => {
         const experiences = ['1 year(s) and 2 month(s)', '3 year(s) and 4 month(s)'];
-        const { getByText } = render(<DateResult experiences={experiences} />);
+        const { getByText } = render(<DateResult language="en" experiences={experiences} />);
 
         expect(getByText('Experiences')).toBeInTheDocument();
         expect(getByText('1 year(s) and 2 month(s)')).toBeInTheDocument();
