@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import langDict from '../LangDict';
 import LoadingModal from './LoadingModal/LoadingModal';
 import SearchResult from './SearchResult/SearchResult';
 import { fetchUserData } from './SearchBoxApi';
@@ -7,7 +8,7 @@ function makeProfileLink(username) {
   return `https://github.com/${username}`;
 }
 
-const SearchBox = () => {
+const SearchBox = ({ language }) => {
   const [username, setUsername] = useState('');
   const [profileLink, setProfileLink] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
@@ -53,7 +54,7 @@ const SearchBox = () => {
         <label
           className="form-label"
           htmlFor="username">
-          Username:
+          {langDict[language].username}
         </label>
         <input
           id="username-input"
@@ -69,7 +70,7 @@ const SearchBox = () => {
           data-testid="submit-username-button"
           className="form-button"
           type="submit">
-          Submit
+          {langDict[language].submit}
         </button>
       </form>
       {isLoading && <LoadingModal />}
