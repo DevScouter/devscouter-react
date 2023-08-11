@@ -8,7 +8,7 @@ function makeProfileLink(username) {
   return `https://github.com/${username}`;
 }
 
-const SearchBox = ({ language }) => {
+const SearchBox = ({ lang }) => {
   const [username, setUsername] = useState('');
   const [profileLink, setProfileLink] = useState('');
   const [responseMessage, setResponseMessage] = useState('');
@@ -19,7 +19,7 @@ const SearchBox = ({ language }) => {
     event.preventDefault();
 
     if (!username) {
-      alert(langDict[language].enterUsername);
+      alert(langDict[lang].enterUsername);
       return;
     }
 
@@ -28,7 +28,7 @@ const SearchBox = ({ language }) => {
     try {
       const formattedUsername = username.trim().toLowerCase();
       const formattedProfileLink = makeProfileLink(formattedUsername);
-      const responseData = await fetchUserData(formattedUsername, language);
+      const responseData = await fetchUserData(formattedUsername, lang);
       if (responseData) {
         setResponseMessage(JSON.stringify(responseData, null, 2));
         setProfileLink(formattedProfileLink);
@@ -54,7 +54,7 @@ const SearchBox = ({ language }) => {
         <label
           className="form-label"
           htmlFor="username">
-          {langDict[language].username}
+          {langDict[lang].username}
         </label>
         <input
           id="username-input"
@@ -70,7 +70,7 @@ const SearchBox = ({ language }) => {
           data-testid="submit-username-button"
           className="form-button"
           type="submit">
-          {langDict[language].submit}
+          {langDict[lang].submit}
         </button>
       </form>
       {isLoading && <LoadingModal />}
@@ -79,7 +79,7 @@ const SearchBox = ({ language }) => {
           username={username}
           responseMessage={responseMessage}
           profileLink={profileLink}
-          language={language}
+          lang={lang}
         />
       )}
     </div>

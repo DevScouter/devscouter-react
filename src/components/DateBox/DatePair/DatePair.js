@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './DatePair.css';
 import langDict from '../../LangDict';
 
-const DatePair = ({ onDelete, language }) => {
+const DatePair = ({ onDelete, lang }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
@@ -28,7 +28,7 @@ const DatePair = ({ onDelete, language }) => {
             datePair.remove();
             onDelete();
         } else {
-            alert(langDict[language].atLeastOneDatePair);
+            alert(langDict[lang].atLeastOneDatePair);
         }
     };
 

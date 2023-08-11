@@ -8,7 +8,7 @@ import DatePair from '../components/DateBox/DatePair/DatePair';
 
 const simulateApiError = async (errorType, usernameInput) => {
     const error = new Error(errorType);
-    render(<SearchBox language="en" />);
+    render(<SearchBox lang="en" />);
     jest.spyOn(global, 'fetch').mockRejectedValue(error);
 
     const inputElement = screen.getByTestId('username-input');
@@ -22,7 +22,7 @@ const simulateApiError = async (errorType, usernameInput) => {
 };
 
 const simulateDateInputError = (startDate, endDate) => {
-    render(<DateBox language="en" />);
+    render(<DateBox lang="en" />);
     const startDateElement = screen.getByTestId('start-date-input');
     const endDateElement = screen.getByTestId('end-date-input');
     fireEvent.change(startDateElement, { target: { value: startDate } });
@@ -32,7 +32,7 @@ const simulateDateInputError = (startDate, endDate) => {
 };
 
 const simulateDatePairInputs = (datePairsData) => {
-    render(<DateBox language="en" />);
+    render(<DateBox lang="en" />);
 
     const addButtonElement = screen.getByTestId('add-pair-button');
     fireEvent.click(addButtonElement);
@@ -51,21 +51,21 @@ const simulateDatePairInputs = (datePairsData) => {
 };
 
 test('updates input value on change for SearchBox', () => {
-    render(<SearchBox language="en" />);
+    render(<SearchBox lang="en" />);
     const inputElement = screen.getByTestId('username-input');
     fireEvent.change(inputElement, { target: { value: 'testuser' } });
     expect(inputElement.value).toBe('testuser');
 });
 
 test('updates input value on change for DatePair', () => {
-    render(<DatePair language="en" />);
+    render(<DatePair lang="en" />);
     const inputElement = screen.getByTestId('start-date-input');
     fireEvent.change(inputElement, { target: { value: '202101' } });
     expect(inputElement.value).toBe('2021-01');
 });
 
 test('displays alert when username is empty', () => {
-    render(<SearchBox language="en" />);
+    render(<SearchBox lang="en" />);
     const buttonElement = screen.getByTestId('submit-username-button');
     fireEvent.click(buttonElement);
     expect(window.alert).toHaveBeenCalledWith('Please enter a username.');
@@ -117,7 +117,7 @@ test('displays alert when months are more than 12', () => {
 });
 
 test('displays total experience', () => {
-    render(<DateBox language="en" />);
+    render(<DateBox lang="en" />);
     const startDateElement = screen.getByTestId('start-date-input');
     const endDateElement = screen.getByTestId('end-date-input');
     fireEvent.change(startDateElement, { target: { value: '2021-01' } });
@@ -151,15 +151,15 @@ test('displays changed result after deleting pair', () => {
     expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) and 1 month(s)');
 });
 
-test('language is set to Korean when kr-button is pressed', () => {
-    render(<App language="en" />);
+test('lang is set to Korean when kr-button is pressed', () => {
+    render(<App lang="en" />);
     const buttonElement = screen.getByTestId('kr-button');
     fireEvent.click(buttonElement);
     expect(screen.getByTestId('App-header')).toHaveTextContent('데브스카우터');
 });
 
-test('language is set to English when kr-button is pressed', () => {
-    render(<App language="en" />);
+test('lang is set to English when kr-button is pressed', () => {
+    render(<App lang="en" />);
     const krButtonElement = screen.getByTestId('kr-button');
     fireEvent.click(krButtonElement);
     const enButtonElement = screen.getByTestId('en-button');

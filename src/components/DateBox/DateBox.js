@@ -4,7 +4,7 @@ import DatePair from './DatePair/DatePair';
 import DateResult from './DateResult/DateResult';
 import langDict from '../LangDict';
 
-const DateBox = ({ language }) => {
+const DateBox = ({ lang }) => {
   const [datePairCount, setDatePairCount] = useState(1);
   const [experiences, setExperiences] = useState([]);
   const [totalExperience, setTotalExperience] = useState('');
@@ -14,7 +14,7 @@ const DateBox = ({ language }) => {
     <DatePair
       key={index}
       onDelete={() => handleDatePairDelete(index)}
-      language={language}
+      lang={lang}
     />
   ));
 
@@ -42,7 +42,7 @@ const DateBox = ({ language }) => {
     const totalMonths = calculateTotal(datePairs, 1);
     const totalYearsWithRemainder = totalYears + Math.floor(totalMonths / 12);
     const totalMonthsWithRemainder = totalMonths % 12;
-    return `${totalYearsWithRemainder} year(s) and ${totalMonthsWithRemainder} month(s)`;
+    return [totalYearsWithRemainder, totalMonthsWithRemainder];
   };
 
   const calculateExperience = event => {
@@ -52,7 +52,7 @@ const DateBox = ({ language }) => {
     const dateArray = Array.from(dateInputs, dateInput => dateInput.value.replace(/\D/g, ''));
 
     if (dateArray.some(date => date === '')) {
-      alert(langDict[language].emptyDate);
+      alert(langDict[lang].emptyDate);
       return;
     }
 
@@ -62,12 +62,12 @@ const DateBox = ({ language }) => {
         const endDate = array[index + 1];
 
         if (startDate.length !== 6 || endDate.length !== 6) {
-          alert(langDict[language].invalidDate);
+          alert(langDict[lang].invalidDate);
           return pairs;
         }
 
         if (startDate >= endDate) {
-          alert(langDict[language].endDateBeforeStartDate);
+          alert(langDict[lang].endDateBeforeStartDate);
           return pairs;
         }
 
@@ -77,12 +77,12 @@ const DateBox = ({ language }) => {
         const endMonth = parseInt(endDate.substring(4, 6), 10);
 
         if (startYear < 1900 || endYear < 1900) {
-          alert(langDict[language].checkYears);
+          alert(langDict[lang].checkYears);
           return pairs;
         }
 
         if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) {
-          alert(langDict[language].checkMonths);
+          alert(langDict[lang].checkMonths);
           return pairs;
         }
 
@@ -107,7 +107,7 @@ const DateBox = ({ language }) => {
     <div>
       <form id="date-form" data-testid="date-form" className="search-form">
         <label className="form-label" htmlFor="start-date">
-          {langDict[language].yearsOfExperience}
+          {langDict[lang].yearsOfExperience}
         </label>
         {datePairs}
         <button
@@ -121,7 +121,7 @@ const DateBox = ({ language }) => {
         </button>
         {showDateResult &&
           <DateResult
-            language={language}
+            lang={lang}
             experiences={experiences}
             totalExperience={totalExperience}
           />}
@@ -132,7 +132,7 @@ const DateBox = ({ language }) => {
           type="submit"
           onClick={calculateExperience}
         >
-          {langDict[language].submit}
+          {langDict[lang].submit}
         </button>
       </form>
     </div>

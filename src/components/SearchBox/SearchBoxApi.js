@@ -2,7 +2,7 @@ import langDict from '../LangDict';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const fetchUserData = async (username, language) => {
+export const fetchUserData = async (username, lang) => {
     const data = { username };
 
     try {
@@ -22,13 +22,13 @@ export const fetchUserData = async (username, language) => {
         console.error(error);
         switch (error.message) {
             case '400':
-                alert(langDict[language].userDoesNotExist);
+                alert(langDict[lang].userDoesNotExist);
                 break;
             case '500':
-                alert(langDict[language].serverIsWrong);
+                alert(langDict[lang].serverIsWrong);
                 break;
             default:
-                alert(langDict[language].somethingIsWrong);
+                alert(langDict[lang].somethingIsWrong);
                 break;
         }
     }

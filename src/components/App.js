@@ -6,23 +6,23 @@ import langDict from './LangDict';
 import SearchBox from './SearchBox/SearchBox';
 
 function App() {
-  const [language, setLanguage] = useState('en');
+  const [lang, setLang] = useState('en');
 
-  const changeLanguage = (lang) => {
-    setLanguage(lang);
+  const changeLang = (lang) => {
+    setLang(lang);
   };
 
   return (
     <div className="App">
-      <LangChange onChangeLanguage={changeLanguage} />
+      <LangChange onChangeLang={changeLang} />
       <header
         className="App-header"
         data-testid="App-header"
       >
-        {langDict[language].headerText}
+        {langDict[lang].headerText}
       </header>
-      <DateBox language={language} />
-      <SearchBox language={language} />
+      <DateBox lang={lang} />
+      <SearchBox lang={lang} />
     </div>
   );
 }
