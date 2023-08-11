@@ -3,7 +3,10 @@ import './DateResult.css';
 import langDict from '../../LangDict';
 
 const DateResult = ({ experiences, totalExperience, lang }) => {
-    totalExperience = `${totalExperience[0]} ${langDict[lang].year} and ${totalExperience[1]} ${langDict[lang].month}`;
+    experiences = experiences.map((experience) => {
+        return `${experience[0]} ${langDict[lang].year} ${experience[1]} ${langDict[lang].month}`;
+    });
+    totalExperience = `${totalExperience[0]} ${langDict[lang].year} ${totalExperience[1]} ${langDict[lang].month}`;
     return (
         <div className="date-result">
             <h2 className="date-result-h2"> {langDict[lang].experiences} </h2>

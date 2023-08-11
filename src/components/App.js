@@ -13,7 +13,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" data-testid="app">
       <LangChange onChangeLang={changeLang} />
       <header
         className="App-header"

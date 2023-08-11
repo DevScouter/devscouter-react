@@ -13,7 +13,6 @@ const DateBox = ({ lang }) => {
   const datePairs = Array.from({ length: datePairCount }, (_, index) => (
     <DatePair
       key={index}
-      onDelete={() => handleDatePairDelete(index)}
       lang={lang}
     />
   ));
@@ -22,18 +21,8 @@ const DateBox = ({ lang }) => {
     setDatePairCount(prevCount => prevCount + 1);
   };
 
-  const handleDatePairDelete = (index) => {
-    const updatedExperiences = [...experiences];
-    updatedExperiences.splice(index, 1);
-
-    const updatedTotalExperience = calculateTotalExperience(updatedExperiences);
-    setTotalExperience(updatedTotalExperience);
-    setExperiences(updatedExperiences);
-  };
-
   const calculateTotal = (datePairs, index) => datePairs.reduce((sum, experience) => {
-    const numbers = experience.match(/\d+/g);
-    const value = numbers ? parseInt(numbers[index]) : 0;
+    const value = experience[index];
     return sum + value;
   }, 0);
 
@@ -89,7 +78,7 @@ const DateBox = ({ lang }) => {
         const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
         const totalYears = Math.floor(totalMonths / 12);
         const totalMonthsRemainder = totalMonths % 12;
-        const totalExperience = `${totalYears} year(s) and ${totalMonthsRemainder} month(s)`;
+        const totalExperience = [totalYears, totalMonthsRemainder];
 
         setShowDateResult(true);
         return [...pairs, totalExperience];

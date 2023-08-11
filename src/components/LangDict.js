@@ -66,7 +66,7 @@ const langDict = {
         githubProfileLink: '깃허브 프로필 링크',
         headerText: '데브스카우터 - 한눈에 보는 개발자',
         invalidDate: '올바른 날짜를 입력해주세요. (YYYYMM)',
-        month: '월',
+        month: '개월',
         serverIsWrong: '서버에 문제가 발생했습니다. 나중에 다시 시도해주세요.',
         somethingIsWrong: '에러가 발생했습니다. 나중에 다시 시도해주세요.',
         stack: {

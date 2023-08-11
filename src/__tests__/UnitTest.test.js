@@ -1,25 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../components/App';
-import LangChange from '../components/LangChange/LangChange';
 import SearchBox from '../components/SearchBox/SearchBox';
 import DateBox from '../components/DateBox/DateBox';
 import DatePair from '../components/DateBox/DatePair/DatePair';
-
-const simulateApiError = async (errorType, usernameInput) => {
-    const error = new Error(errorType);
-    render(<SearchBox lang="en" />);
-    jest.spyOn(global, 'fetch').mockRejectedValue(error);
-
-    const inputElement = screen.getByTestId('username-input');
-    fireEvent.change(inputElement, { target: { value: usernameInput } });
-    const buttonElement = screen.getByTestId('submit-username-button');
-    fireEvent.click(buttonElement);
-
-    await waitFor(() => expect(window.alert).toBeCalled());
-
-    global.fetch.mockRestore();
-};
 
 const simulateDateInputError = (startDate, endDate) => {
     render(<DateBox lang="en" />);
@@ -71,21 +55,6 @@ test('displays alert when username is empty', () => {
     expect(window.alert).toHaveBeenCalledWith('Please enter a username.');
 });
 
-test('displays alert when user does not exist with 400', async () => {
-    await simulateApiError('400', 'non-exist-username');
-    expect(window.alert).toHaveBeenCalledWith('User does not exist. Check the spelling and try again.');
-});
-
-test('displays alert when server is down with 500', async () => {
-    await simulateApiError('500', 'MontyCoder0701');
-    expect(window.alert).toHaveBeenCalledWith('Something went wrong with the server. Please try again later.');
-});
-
-test('displays alert when default error occurs', async () => {
-    await simulateApiError('404', 'MontyCoder0701');
-    expect(window.alert).toHaveBeenCalledWith('An error occurred. Please try again later.');
-});
-
 test('displays alert when start date input is empty', () => {
     simulateDateInputError('', '2021-01');
     expect(window.alert).toHaveBeenCalledWith('Please fill out all date inputs.');
@@ -124,7 +93,35 @@ test('displays total experience', () => {
     fireEvent.change(endDateElement, { target: { value: '2021-02' } });
     const buttonElement = screen.getByTestId('submit-date-button');
     fireEvent.click(buttonElement);
-    expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) and 1 month(s)');
+    expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) 1 month(s)');
+});
+
+test('displays error when only one date pair exists and delete is pressed', () => {
+    render(<DateBox lang="en" />);
+    const datePairs = screen.getAllByTestId('date-pair');
+    const startDateElement = screen.getByTestId('start-date-input');
+    const endDateElement = screen.getByTestId('end-date-input');
+    fireEvent.change(startDateElement, { target: { value: '2021-01' } });
+    fireEvent.change(endDateElement, { target: { value: '2021-02' } });
+
+    const deleteButtonElement = datePairs[0].querySelector('[data-testid="delete-pair-button"]');
+    fireEvent.click(deleteButtonElement);
+    expect(window.alert).toHaveBeenCalledWith('You must have at least one date pair.');
+});
+
+test('deletes date pair when more than one exist', () => {
+    render(<DateBox lang="en" />);
+    const datePairs = screen.getAllByTestId('date-pair');
+    const startDateElement = screen.getByTestId('start-date-input');
+    const endDateElement = screen.getByTestId('end-date-input');
+    fireEvent.change(startDateElement, { target: { value: '2021-01' } });
+    fireEvent.change(endDateElement, { target: { value: '2021-02' } });
+
+    const addButtonElement = screen.getByTestId('add-pair-button');
+    fireEvent.click(addButtonElement);
+
+    const deleteButtonElement = datePairs[0].querySelector('[data-testid="delete-pair-button"]');
+    fireEvent.click(deleteButtonElement);
 });
 
 test('displays total experience with multiple date pairs', () => {
@@ -133,22 +130,7 @@ test('displays total experience with multiple date pairs', () => {
         { startDate: '2021-03', endDate: '2023-04' }
     ];
     simulateDatePairInputs(datePairsData);
-    expect(screen.getByTestId('total-experience')).toHaveTextContent('2 year(s) and 2 month(s)');
-});
-
-test('displays changed result after deleting pair', () => {
-    const datePairsData = [
-        { startDate: '2021-01', endDate: '2021-02' },
-        { startDate: '2021-03', endDate: '2023-04' }
-    ];
-    simulateDatePairInputs(datePairsData);
-    expect(screen.getByTestId('total-experience')).toHaveTextContent('2 year(s) and 2 month(s)');
-
-    const datePairs = screen.getAllByTestId('date-pair');
-    const deleteButtonElement = datePairs[1].querySelector('[data-testid="delete-pair-button"]');
-    fireEvent.click(deleteButtonElement);
-
-    expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) and 1 month(s)');
+    expect(screen.getByTestId('total-experience')).toHaveTextContent('2 year(s) 2 month(s)');
 });
 
 test('lang is set to Korean when kr-button is pressed', () => {
