@@ -4,6 +4,7 @@ import App from '../components/App';
 import DateBox from '../components/DateBox/DateBox';
 import DatePair from '../components/DateBox/DatePair/DatePair';
 import DateResult from '../components/DateBox/DateResult/DateResult';
+import LangChange from '../components/LangChange/LangChange';
 import LoadingModal from '../components/SearchBox/LoadingModal/LoadingModal';
 import SearchBox from '../components/SearchBox/SearchBox';
 import SearchResult from '../components/SearchBox/SearchResult/SearchResult';
@@ -31,7 +32,7 @@ test('renders App', () => {
 });
 
 test('renders SearchBox', () => {
-    checkTextAfterRender(<SearchBox language="en" />, 'Username:');
+    checkTextAfterRender(<SearchBox language="en" />, 'Username');
 });
 
 test('renders SearchResult', () => {
@@ -41,6 +42,10 @@ test('renders SearchResult', () => {
 test('renders DateBox', () => {
     checkTextAfterRender(<DateBox language="en" />, 'Years of Experience');
 });
+
+test('renders LangChange', () =>
+    checkTextAfterRender(<LangChange language="en" />, 'English')
+);
 
 test('renders LoadingModal', () => {
     checkImageAfterRender(<LoadingModal language="en" />, 'loading');

@@ -14,10 +14,13 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <LangChange onChangeLanguage={changeLanguage} />
+      <header
+        className="App-header"
+        data-testid="App-header"
+      >
         {langDict[language].headerText}
       </header>
-      <LangChange onChangeLanguage={changeLanguage} />
       <DateBox language={language} />
       <SearchBox language={language} />
     </div>

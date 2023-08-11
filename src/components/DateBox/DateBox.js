@@ -11,7 +11,11 @@ const DateBox = ({ language }) => {
   const [showDateResult, setShowDateResult] = useState(false);
 
   const datePairs = Array.from({ length: datePairCount }, (_, index) => (
-    <DatePair key={index} onDelete={() => handleDatePairDelete(index)} />
+    <DatePair
+      key={index}
+      onDelete={() => handleDatePairDelete(index)}
+      language={language}
+    />
   ));
 
   const addDatePair = () => {
@@ -48,7 +52,7 @@ const DateBox = ({ language }) => {
     const dateArray = Array.from(dateInputs, dateInput => dateInput.value.replace(/\D/g, ''));
 
     if (dateArray.some(date => date === '')) {
-      alert('Please fill out all date inputs.');
+      alert(langDict[language].emptyDate);
       return;
     }
 
@@ -58,12 +62,12 @@ const DateBox = ({ language }) => {
         const endDate = array[index + 1];
 
         if (startDate.length !== 6 || endDate.length !== 6) {
-          alert('Please enter a valid date. (YYYYMM)');
+          alert(langDict[language].invalidDate);
           return pairs;
         }
 
         if (startDate >= endDate) {
-          alert('Start date must be before end date.');
+          alert(langDict[language].endDateBeforeStartDate);
           return pairs;
         }
 
@@ -73,12 +77,12 @@ const DateBox = ({ language }) => {
         const endMonth = parseInt(endDate.substring(4, 6), 10);
 
         if (startYear < 1900 || endYear < 1900) {
-          alert('Please check your years. (YYYYMM)');
+          alert(langDict[language].checkYears);
           return pairs;
         }
 
         if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) {
-          alert('Please check your months. (YYYYMM)');
+          alert(langDict[language].checkMonths);
           return pairs;
         }
 
@@ -99,7 +103,6 @@ const DateBox = ({ language }) => {
     setExperiences(datePairs);
   };
 
-
   return (
     <div>
       <form id="date-form" data-testid="date-form" className="search-form">
@@ -116,7 +119,12 @@ const DateBox = ({ language }) => {
         >
           +
         </button>
-        {showDateResult && <DateResult experiences={experiences} totalExperience={totalExperience} />}
+        {showDateResult &&
+          <DateResult
+            language={language}
+            experiences={experiences}
+            totalExperience={totalExperience}
+          />}
         <button
           id="submit-date-button"
           data-testid="submit-date-button"

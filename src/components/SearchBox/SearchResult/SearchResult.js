@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SearchResult.css';
+import langDict from '../../LangDict';
 
 const defaultResponseText = {
   techStack: 'No stack found',
@@ -10,7 +11,7 @@ const defaultResponseText = {
   profileLink: 'No profile link found',
 };
 
-function SearchResult({ responseMessage, profileLink }) {
+function SearchResult({ responseMessage, profileLink, language }) {
   const [responseText, setResponseText] = useState(defaultResponseText);
 
   function parseResponse(responseMessage) {
@@ -40,12 +41,12 @@ function SearchResult({ responseMessage, profileLink }) {
 
   return (
     <div className="search-result">
-      <p className="result-text"> Tech Stack: {responseText.techStack}</p>
-      <p className="result-text"> Expert Languages: {responseText.expertLanguages}</p>
-      <p className="result-text"> GitHub Activity: {responseText.githubActivity}</p>
-      <p className="result-text"> Expertise: {responseText.expertise}</p>
-      <p className="result-text"> Years Active: {responseText.yearsActive}</p>
-      <p className="result-link"> GitHub Profile Link:
+      <p className="result-text"> {langDict[language].techStack}: {responseText.techStack}</p>
+      <p className="result-text"> {langDict[language].expertLanguages}: {responseText.expertLanguages}</p>
+      <p className="result-text"> {langDict[language].githubActivity}: {responseText.githubActivity}</p>
+      <p className="result-text"> {langDict[language].expertise}: {responseText.expertise}</p>
+      <p className="result-text"> {langDict[language].yearsActive}: {responseText.yearsActive}</p>
+      <p className="result-link"> {langDict[language].githubProfileLink}:
         <a href={profileLink}> {profileLink} </a>
       </p>
     </div>

@@ -19,7 +19,7 @@ const SearchBox = ({ language }) => {
     event.preventDefault();
 
     if (!username) {
-      alert('Please enter a username.');
+      alert(langDict[language].enterUsername);
       return;
     }
 
@@ -28,7 +28,7 @@ const SearchBox = ({ language }) => {
     try {
       const formattedUsername = username.trim().toLowerCase();
       const formattedProfileLink = makeProfileLink(formattedUsername);
-      const responseData = await fetchUserData(formattedUsername);
+      const responseData = await fetchUserData(formattedUsername, language);
       if (responseData) {
         setResponseMessage(JSON.stringify(responseData, null, 2));
         setProfileLink(formattedProfileLink);
@@ -79,6 +79,7 @@ const SearchBox = ({ language }) => {
           username={username}
           responseMessage={responseMessage}
           profileLink={profileLink}
+          language={language}
         />
       )}
     </div>

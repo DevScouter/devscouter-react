@@ -1,5 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import App from '../components/App';
+import LangChange from '../components/LangChange/LangChange';
 import SearchBox from '../components/SearchBox/SearchBox';
 import DateBox from '../components/DateBox/DateBox';
 import DatePair from '../components/DateBox/DatePair/DatePair';
@@ -147,4 +149,20 @@ test('displays changed result after deleting pair', () => {
     fireEvent.click(deleteButtonElement);
 
     expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) and 1 month(s)');
+});
+
+test('language is set to Korean when kr-button is pressed', () => {
+    render(<App language="en" />);
+    const buttonElement = screen.getByTestId('kr-button');
+    fireEvent.click(buttonElement);
+    expect(screen.getByTestId('App-header')).toHaveTextContent('데브스카우터');
+});
+
+test('language is set to English when kr-button is pressed', () => {
+    render(<App language="en" />);
+    const krButtonElement = screen.getByTestId('kr-button');
+    fireEvent.click(krButtonElement);
+    const enButtonElement = screen.getByTestId('en-button');
+    fireEvent.click(enButtonElement);
+    expect(screen.getByTestId('App-header')).toHaveTextContent('DevScouter');
 });

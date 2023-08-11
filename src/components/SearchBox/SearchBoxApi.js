@@ -1,6 +1,8 @@
+import langDict from '../LangDict';
+
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export const fetchUserData = async (username) => {
+export const fetchUserData = async (username, language) => {
     const data = { username };
 
     try {
@@ -20,13 +22,13 @@ export const fetchUserData = async (username) => {
         console.error(error);
         switch (error.message) {
             case '400':
-                alert('User does not exist. Check the spelling and try again.');
+                alert(langDict[language].userDoesNotExist);
                 break;
             case '500':
-                alert('Something went wrong with the server. Please try again later.');
+                alert(langDict[language].serverIsWrong);
                 break;
             default:
-                alert('An error occurred. Please try again later.');
+                alert(langDict[language].somethingIsWrong);
                 break;
         }
     }
