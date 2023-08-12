@@ -4,7 +4,7 @@ import './LoadingModal.css';
 const LoadingModal = () => {
     return (
         <div className="loading-modal">
-            <img src="/img/loading.gif" alt="loading" />
+            <img src="./img/loading.gif" alt="loading" />
         </div>
     );
 }
