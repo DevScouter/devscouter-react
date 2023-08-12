@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import SearchBox from '../components/SearchBox/SearchBox';
+import SearchResult from '../components/SearchBox/SearchResult/SearchResult';
 import { fetchUserData } from '../components/SearchBox/SearchBoxApi';
 
 const apiUrl = process.env.REACT_APP_API_URL;
@@ -82,5 +83,45 @@ test('displays alert when server is down with 500', async () => {
 test('displays alert when default error occurs', async () => {
     await simulateApiError('404', 'MontyCoder0701');
     expect(window.alert).toHaveBeenCalledWith('An error occurred. Please try again later.');
+});
+
+describe('SearchResult component', () => {
+    const responseMessage = 'Error';
+    const profileLink = 'https://github.com/example';
+    const lang = 'en';
+
+    it('renders default response when parsing error occurs', () => {
+        const { getByText } = render(
+            <SearchResult responseMessage={responseMessage} profileLink={profileLink} lang={lang} />
+        );
+
+        expect(getByText('Tech Stack: No stack found')).toBeInTheDocument();
+        expect(getByText('Expert Languages: No languages found')).toBeInTheDocument();
+        expect(getByText('GitHub Activity: No GitHub activity found')).toBeInTheDocument();
+        expect(getByText('Expertise: No expertise found')).toBeInTheDocument();
+        expect(getByText('Years Active: No years active found')).toBeInTheDocument();
+        expect(getByText('GitHub Profile Link:')).toBeInTheDocument();
+        expect(getByText('https://github.com/example')).toBeInTheDocument();
+    });
+});
+
+describe('SearchResult component', () => {
+    const responseMessage = '{"stack": null , "languages": null, "contributions": null, "expertise": null, "years_active": null}';
+    const profileLink = 'https://github.com/example';
+    const lang = 'en';
+
+    it('renders default response when no value found', () => {
+        const { getByText } = render(
+            <SearchResult responseMessage={responseMessage} profileLink={profileLink} lang={lang} />
+        );
+
+        expect(getByText('Tech Stack: No stack found')).toBeInTheDocument();
+        expect(getByText('Expert Languages: No languages found')).toBeInTheDocument();
+        expect(getByText('GitHub Activity: No GitHub activity found')).toBeInTheDocument();
+        expect(getByText('Expertise: No expertise found')).toBeInTheDocument();
+        expect(getByText('Years Active: No years active found')).toBeInTheDocument();
+        expect(getByText('GitHub Profile Link:')).toBeInTheDocument();
+        expect(getByText('https://github.com/example')).toBeInTheDocument();
+    });
 });
 

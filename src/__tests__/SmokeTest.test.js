@@ -65,5 +65,26 @@ describe('DateResult component', () => {
         expect(getByText('1 year(s) 2 month(s)')).toBeInTheDocument();
         expect(getByText('3 year(s) 4 month(s)')).toBeInTheDocument();
         expect(getByText('Total Experience')).toBeInTheDocument();
+        expect(getByText('4 year(s) 6 month(s)')).toBeInTheDocument();
+    });
+});
+
+describe('SearchResult component', () => {
+    const responseMessage = '{"stack": "Backend", "languages": {"0": "Java", "1": "Python"}, "contributions": "Medium", "expertise": "Senior", "years_active": "5"}';
+    const profileLink = 'https://github.com/example';
+    const lang = 'en';
+
+    it('renders component with parsed response', () => {
+        const { getByText } = render(
+            <SearchResult responseMessage={responseMessage} profileLink={profileLink} lang={lang} />
+        );
+
+        expect(getByText('Tech Stack: Backend')).toBeInTheDocument();
+        expect(getByText('Expert Languages: Java, Python')).toBeInTheDocument();
+        expect(getByText('GitHub Activity: Medium')).toBeInTheDocument();
+        expect(getByText('Expertise: Senior')).toBeInTheDocument();
+        expect(getByText('Years Active: 5')).toBeInTheDocument();
+        expect(getByText('GitHub Profile Link:')).toBeInTheDocument();
+        expect(getByText('https://github.com/example')).toBeInTheDocument();
     });
 });

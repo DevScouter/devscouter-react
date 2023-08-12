@@ -3,17 +3,25 @@ const langDict = {
         atLeastOneDatePair: 'You must have at least one date pair.',
         checkMonths: 'Please check your months. (YYYYMM)',
         checkYears: 'Please check your years. (YYYYMM)',
-        contributions: {
+        contribDict: {
             Ghost: 'Ghost',
             Low: 'Low',
             Medium: 'Medium',
             High: 'High',
         },
+        defaultResponseText: {
+            techStack: 'No stack found',
+            expertLanguages: 'No languages found',
+            githubActivity: 'No GitHub activity found',
+            expertise: 'No expertise found',
+            yearsActive: 'No years active found',
+            profileLink: 'No profile link found',
+        },
         emptyDate: 'Please fill out all date inputs.',
         endDateBeforeStartDate: 'Start date must be before end date.',
         enterUsername: 'Please enter a username.',
         experiences: 'Experiences',
-        expertise: {
+        expertDict: {
             Newbie: 'Newbie',
             Junior: 'Junior',
             Senior: 'Senior',
@@ -27,7 +35,7 @@ const langDict = {
         month: 'month(s)',
         serverIsWrong: 'Something went wrong with the server. Please try again later.',
         somethingIsWrong: 'An error occurred. Please try again later.',
-        stack: {
+        stackDict: {
             Backend: 'Backend',
             Frontend: 'Frontend',
             Fullstack: 'Fullstack',
@@ -45,17 +53,25 @@ const langDict = {
         atLeastOneDatePair: '최소한 하나의 날짜 쌍이 필요합니다.',
         checkMonths: '개월을 확인해주세요. (YYYYMM)',
         checkYears: '년도를 확인해주세요. (YYYYMM)',
-        contributions: {
+        contribDict: {
             Ghost: '유령회원',
             Low: '낮음',
             Medium: '중간',
             High: '높음',
         },
+        defaultResponseText: {
+            techStack: '기술 스택이 없습니다.',
+            expertLanguages: '전문 언어가 없습니다.',
+            githubActivity: '깃허브 활동이 없습니다.',
+            expertise: '전문성이 없습니다.',
+            yearsActive: '활동년수가 없습니다.',
+            profileLink: '프로필 링크가 없습니다.',
+        },
         emptyDate: '날짜를 입력해주세요.',
         endDateBeforeStartDate: '시작 날짜는 종료 날짜보다 빨라야 합니다.',
         enterUsername: '유저네임을 입력해주세요.',
         experiences: '경력',
-        expertise: {
+        expertDict: {
             Newbie: '뉴비',
             Junior: '주니어',
             Senior: '시니어',
@@ -69,7 +85,7 @@ const langDict = {
         month: '개월',
         serverIsWrong: '서버에 문제가 발생했습니다. 나중에 다시 시도해주세요.',
         somethingIsWrong: '에러가 발생했습니다. 나중에 다시 시도해주세요.',
-        stack: {
+        stackDict: {
             Backend: '백엔드',
             Frontend: '프론트엔드',
             Fullstack: '풀스택',
