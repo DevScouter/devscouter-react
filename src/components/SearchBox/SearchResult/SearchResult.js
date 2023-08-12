@@ -1,32 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SearchResult.css';
 import langDict from '../../LangDict';
 
 function SearchResult({ responseMessage, profileLink, lang }) {
   const [responseText, setResponseText] = useState(langDict[lang].defaultResponseText);
 
-  const parseResponse = useCallback(
-    (responseMessage, lang) => {
-      try {
-        let { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
-        stack = langDict[lang].stackDict[stack];
-        contributions = langDict[lang].contribDict[contributions];
-        expertise = langDict[lang].expertDict[expertise];
+  const parseResponse = (responseMessage, lang) => {
+    try {
+      let { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
+      stack = langDict[lang].stackDict[stack];
+      contributions = langDict[lang].contribDict[contributions];
+      expertise = langDict[lang].expertDict[expertise];
 
-        return {
-          techStack: stack || langDict[lang].defaultResponseText['techStack'],
-          expertLanguages: languages ? Object.values(languages).join(', ') : langDict[lang].defaultResponseText['expertLanguages'],
-          githubActivity: contributions || langDict[lang].defaultResponseText['githubActivity'],
-          expertise: expertise || langDict[lang].defaultResponseText['expertise'],
-          yearsActive: years_active || langDict[lang].defaultResponseText['yearsActive'],
-        };
-      } catch (error) {
-        console.error('Error parsing response message:', error);
-        return langDict[lang].defaultResponseText;
-      }
-    },
-    []
-  );
+      return {
+        techStack: stack || langDict[lang].defaultResponseText['techStack'],
+        expertLanguages: languages ? Object.values(languages).join(', ') : langDict[lang].defaultResponseText['expertLanguages'],
+        githubActivity: contributions || langDict[lang].defaultResponseText['githubActivity'],
+        expertise: expertise || langDict[lang].defaultResponseText['expertise'],
+        yearsActive: years_active || langDict[lang].defaultResponseText['yearsActive'],
+      };
+    } catch (error) {
+      console.error('Error parsing response message:', error);
+      return langDict[lang].defaultResponseText;
+    }
+  };
 
   useEffect(() => {
     if (responseMessage) {
@@ -35,7 +32,7 @@ function SearchResult({ responseMessage, profileLink, lang }) {
         ...parsedResponse,
       });
     }
-  }, [responseMessage, lang, parseResponse]);
+  }, [responseMessage, lang]);
 
   return (
     <div
