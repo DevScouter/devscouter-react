@@ -21,6 +21,9 @@ function App() {
       >
         {langDict[lang].headerText}
       </header>
+      <div className="App-subheader">
+        {langDict[lang].subText}
+      </div>
       <DateBox lang={lang} />
       <SearchBox lang={lang} />
     </div>

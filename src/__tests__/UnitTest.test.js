@@ -85,7 +85,7 @@ test('displays alert when months are more than 12', () => {
     expect(window.alert).toHaveBeenCalledWith('Please check your months. (YYYYMM)');
 });
 
-test('displays total experience', () => {
+test('displays total experience when years are 0', () => {
     render(<DateBox lang="en" />);
     const startDateElement = screen.getByTestId('start-date-input');
     const endDateElement = screen.getByTestId('end-date-input');
@@ -93,7 +93,18 @@ test('displays total experience', () => {
     fireEvent.change(endDateElement, { target: { value: '2021-02' } });
     const buttonElement = screen.getByTestId('submit-date-button');
     fireEvent.click(buttonElement);
-    expect(screen.getByTestId('total-experience')).toHaveTextContent('0 year(s) 1 month(s)');
+    expect(screen.getByTestId('total-experience')).toHaveTextContent('1 month(s)');
+});
+
+test('displays total experience when months are 0', () => {
+    render(<DateBox lang="en" />);
+    const startDateElement = screen.getByTestId('start-date-input');
+    const endDateElement = screen.getByTestId('end-date-input');
+    fireEvent.change(startDateElement, { target: { value: '2021-01' } });
+    fireEvent.change(endDateElement, { target: { value: '2022-01' } });
+    const buttonElement = screen.getByTestId('submit-date-button');
+    fireEvent.click(buttonElement);
+    expect(screen.getByTestId('total-experience')).toHaveTextContent('1 year(s)');
 });
 
 test('displays error when only one date pair exists and delete is pressed', () => {

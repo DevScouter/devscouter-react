@@ -121,7 +121,7 @@ const DateBox = ({ lang }) => {
           type="submit"
           onClick={calculateExperience}
         >
-          {langDict[lang].submit}
+          {langDict[lang].calculate}
         </button>
       </form>
     </div>
