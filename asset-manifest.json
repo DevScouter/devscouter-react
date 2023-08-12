@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/devscouter-react/static/css/main.6377d49f.css",
-    "main.js": "/devscouter-react/static/js/main.a8051287.js",
+    "main.js": "/devscouter-react/static/js/main.95ea3341.js",
     "index.html": "/devscouter-react/index.html",
     "main.6377d49f.css.map": "/devscouter-react/static/css/main.6377d49f.css.map",
-    "main.a8051287.js.map": "/devscouter-react/static/js/main.a8051287.js.map"
+    "main.95ea3341.js.map": "/devscouter-react/static/js/main.95ea3341.js.map"
   },
   "entrypoints": [
     "static/css/main.6377d49f.css",
-    "static/js/main.a8051287.js"
+    "static/js/main.95ea3341.js"
   ]
 }
