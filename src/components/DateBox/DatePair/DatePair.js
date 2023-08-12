@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './DatePair.css';
+import langDict from '../../LangDict';
 
-const DatePair = ({ onDelete }) => {
+const DatePair = ({ lang }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
 
@@ -25,9 +26,8 @@ const DatePair = ({ onDelete }) => {
 
         if (datePairs.length > 1) {
             datePair.remove();
-            onDelete();
         } else {
-            alert('You must have at least one date pair.');
+            alert(langDict[lang].atLeastOneDatePair);
         }
     };
 

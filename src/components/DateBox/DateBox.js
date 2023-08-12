@@ -4,32 +4,25 @@ import DatePair from './DatePair/DatePair';
 import DateResult from './DateResult/DateResult';
 import langDict from '../LangDict';
 
-const DateBox = ({ language }) => {
+const DateBox = ({ lang }) => {
   const [datePairCount, setDatePairCount] = useState(1);
   const [experiences, setExperiences] = useState([]);
   const [totalExperience, setTotalExperience] = useState('');
   const [showDateResult, setShowDateResult] = useState(false);
 
   const datePairs = Array.from({ length: datePairCount }, (_, index) => (
-    <DatePair key={index} onDelete={() => handleDatePairDelete(index)} />
+    <DatePair
+      key={index}
+      lang={lang}
+    />
   ));
 
   const addDatePair = () => {
     setDatePairCount(prevCount => prevCount + 1);
   };
 
-  const handleDatePairDelete = (index) => {
-    const updatedExperiences = [...experiences];
-    updatedExperiences.splice(index, 1);
-
-    const updatedTotalExperience = calculateTotalExperience(updatedExperiences);
-    setTotalExperience(updatedTotalExperience);
-    setExperiences(updatedExperiences);
-  };
-
   const calculateTotal = (datePairs, index) => datePairs.reduce((sum, experience) => {
-    const numbers = experience.match(/\d+/g);
-    const value = numbers ? parseInt(numbers[index]) : 0;
+    const value = experience[index];
     return sum + value;
   }, 0);
 
@@ -38,7 +31,7 @@ const DateBox = ({ language }) => {
     const totalMonths = calculateTotal(datePairs, 1);
     const totalYearsWithRemainder = totalYears + Math.floor(totalMonths / 12);
     const totalMonthsWithRemainder = totalMonths % 12;
-    return `${totalYearsWithRemainder} year(s) and ${totalMonthsWithRemainder} month(s)`;
+    return [totalYearsWithRemainder, totalMonthsWithRemainder];
   };
 
   const calculateExperience = event => {
@@ -48,7 +41,7 @@ const DateBox = ({ language }) => {
     const dateArray = Array.from(dateInputs, dateInput => dateInput.value.replace(/\D/g, ''));
 
     if (dateArray.some(date => date === '')) {
-      alert('Please fill out all date inputs.');
+      alert(langDict[lang].emptyDate);
       return;
     }
 
@@ -58,12 +51,12 @@ const DateBox = ({ language }) => {
         const endDate = array[index + 1];
 
         if (startDate.length !== 6 || endDate.length !== 6) {
-          alert('Please enter a valid date. (YYYYMM)');
+          alert(langDict[lang].invalidDate);
           return pairs;
         }
 
         if (startDate >= endDate) {
-          alert('Start date must be before end date.');
+          alert(langDict[lang].endDateBeforeStartDate);
           return pairs;
         }
 
@@ -73,19 +66,19 @@ const DateBox = ({ language }) => {
         const endMonth = parseInt(endDate.substring(4, 6), 10);
 
         if (startYear < 1900 || endYear < 1900) {
-          alert('Please check your years. (YYYYMM)');
+          alert(langDict[lang].checkYears);
           return pairs;
         }
 
         if (startMonth < 1 || startMonth > 12 || endMonth < 1 || endMonth > 12) {
-          alert('Please check your months. (YYYYMM)');
+          alert(langDict[lang].checkMonths);
           return pairs;
         }
 
         const totalMonths = (endYear - startYear) * 12 + (endMonth - startMonth);
         const totalYears = Math.floor(totalMonths / 12);
         const totalMonthsRemainder = totalMonths % 12;
-        const totalExperience = `${totalYears} year(s) and ${totalMonthsRemainder} month(s)`;
+        const totalExperience = [totalYears, totalMonthsRemainder];
 
         setShowDateResult(true);
         return [...pairs, totalExperience];
@@ -99,12 +92,11 @@ const DateBox = ({ language }) => {
     setExperiences(datePairs);
   };
 
-
   return (
     <div>
       <form id="date-form" data-testid="date-form" className="search-form">
         <label className="form-label" htmlFor="start-date">
-          {langDict[language].yearsOfExperience}
+          {langDict[lang].yearsOfExperience}
         </label>
         {datePairs}
         <button
@@ -116,7 +108,12 @@ const DateBox = ({ language }) => {
         >
           +
         </button>
-        {showDateResult && <DateResult experiences={experiences} totalExperience={totalExperience} />}
+        {showDateResult &&
+          <DateResult
+            lang={lang}
+            experiences={experiences}
+            totalExperience={totalExperience}
+          />}
         <button
           id="submit-date-button"
           data-testid="submit-date-button"
@@ -124,7 +121,7 @@ const DateBox = ({ language }) => {
           type="submit"
           onClick={calculateExperience}
         >
-          {langDict[language].submit}
+          {langDict[lang].submit}
         </button>
       </form>
     </div>

@@ -42,4 +42,8 @@ This is the React frontend for the DevScouter project.
     npm test UnitTest
     ```
 
+    ``` bash
+    npm test ApiUnitTest
+    ```
+
     This will run the unit tests for API calls and other functions.

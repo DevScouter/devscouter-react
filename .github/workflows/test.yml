@@ -30,6 +30,9 @@ jobs:
       - name: Run Unit test
         run: npm test UnitTest
 
+      - name: Run API Unit test
+        run: npm test ApiUnitTest
+
       - name: Get Code Coverage
         run: npm test -- --coverage --watchAll=false
 
