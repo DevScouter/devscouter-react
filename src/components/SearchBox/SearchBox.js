@@ -70,7 +70,7 @@ const SearchBox = ({ lang }) => {
           data-testid="submit-username-button"
           className="form-button"
           type="submit">
-          {langDict[lang].submit}
+          {langDict[lang].search}
         </button>
       </form>
       {isLoading && <LoadingModal />}

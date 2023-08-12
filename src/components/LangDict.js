@@ -1,6 +1,7 @@
 const langDict = {
     en: {
         atLeastOneDatePair: 'You must have at least one date pair.',
+        calculate: 'Calculate',
         checkMonths: 'Please check your months. (YYYYMM)',
         checkYears: 'Please check your years. (YYYYMM)',
         contribDict: {
@@ -30,9 +31,10 @@ const langDict = {
         expertLanguages: 'Expert Languages',
         githubActivity: 'GitHub Activity',
         githubProfileLink: 'GitHub Profile Link',
-        headerText: 'DevScouter - GitHub Dev Search',
+        headerText: 'DevScouter',
         invalidDate: 'Please enter a valid date. (YYYYMM)',
         month: 'month(s)',
+        search: 'Search',
         serverIsWrong: 'Something went wrong with the server. Please try again later.',
         somethingIsWrong: 'An error occurred. Please try again later.',
         stackDict: {
@@ -40,7 +42,7 @@ const langDict = {
             Frontend: 'Frontend',
             Fullstack: 'Fullstack',
         },
-        submit: 'Submit',
+        subText: 'GitHub Dev Search',
         techStack: 'Tech Stack',
         totalExperience: 'Total Experience',
         userDoesNotExist: 'User does not exist. Check the spelling and try again.',
@@ -51,6 +53,7 @@ const langDict = {
     },
     kr: {
         atLeastOneDatePair: '최소한 하나의 날짜 쌍이 필요합니다.',
+        calculate: '계산하기',
         checkMonths: '개월을 확인해주세요. (YYYYMM)',
         checkYears: '년도를 확인해주세요. (YYYYMM)',
         contribDict: {
@@ -80,9 +83,10 @@ const langDict = {
         expertLanguages: '전문 언어',
         githubActivity: '깃허브 활동',
         githubProfileLink: '깃허브 프로필 링크',
-        headerText: '데브스카우터 - 한눈에 보는 개발자',
+        headerText: '데브스카우터',
         invalidDate: '올바른 날짜를 입력해주세요. (YYYYMM)',
         month: '개월',
+        search: '검색하기',
         serverIsWrong: '서버에 문제가 발생했습니다. 나중에 다시 시도해주세요.',
         somethingIsWrong: '에러가 발생했습니다. 나중에 다시 시도해주세요.',
         stackDict: {
@@ -90,11 +94,11 @@ const langDict = {
             Frontend: '프론트엔드',
             Fullstack: '풀스택',
         },
-        submit: '제출',
+        subText: '한눈에 보는 개발자',
         techStack: '기술 스택',
         totalExperience: '총 경력',
         userDoesNotExist: '유저가 존재하지 않습니다. 철자를 확인하고 다시 시도해주세요.',
-        username: '유저네임',
+        username: '깃허브 유저네임',
         year: '년',
         yearsActive: '활동년수',
         yearsOfExperience: '경력 계산기',

@@ -2,11 +2,20 @@ import React from 'react';
 import './DateResult.css';
 import langDict from '../../LangDict';
 
-const DateResult = ({ experiences, totalExperience, lang }) => {
-    experiences = experiences.map((experience) => {
+function formatExperience(experience, langDict, lang) {
+    if (experience[0] === 0) {
+        return `${experience[1]} ${langDict[lang].month}`;
+    } else if (experience[1] === 0) {
+        return `${experience[0]} ${langDict[lang].year}`;
+    } else {
         return `${experience[0]} ${langDict[lang].year} ${experience[1]} ${langDict[lang].month}`;
-    });
-    totalExperience = `${totalExperience[0]} ${langDict[lang].year} ${totalExperience[1]} ${langDict[lang].month}`;
+    }
+}
+
+const DateResult = ({ experiences, totalExperience, lang }) => {
+    experiences = experiences.map(experience => formatExperience(experience, langDict, lang));
+    totalExperience = formatExperience(totalExperience, langDict, lang);
+
     return (
         <div className="date-result">
             <h2 className="date-result-h2"> {langDict[lang].experiences} </h2>
