@@ -7,7 +7,7 @@ import langDict from '../LangDict';
 const DateBox = ({ lang }) => {
   const [datePairCount, setDatePairCount] = useState(1);
   const [experiences, setExperiences] = useState([]);
-  const [totalExperience, setTotalExperience] = useState('');
+  const [totalExperience, setTotalExperience] = useState([0, 0]);
   const [showDateResult, setShowDateResult] = useState(false);
 
   const datePairs = Array.from({ length: datePairCount }, (_, index) => (
@@ -21,14 +21,14 @@ const DateBox = ({ lang }) => {
     setDatePairCount(prevCount => prevCount + 1);
   };
 
-  const calculateTotal = (datePairs, index) => datePairs.reduce((sum, experience) => {
+  const calculateTotal = (datePairsNum, index) => datePairsNum.reduce((sum, experience) => {
     const value = experience[index];
     return sum + value;
   }, 0);
 
-  const calculateTotalExperience = datePairs => {
-    const totalYears = calculateTotal(datePairs, 0);
-    const totalMonths = calculateTotal(datePairs, 1);
+  const calculateTotalExperience = datePairsNum => {
+    const totalYears = calculateTotal(datePairsNum, 0);
+    const totalMonths = calculateTotal(datePairsNum, 1);
     const totalYearsWithRemainder = totalYears + Math.floor(totalMonths / 12);
     const totalMonthsWithRemainder = totalMonths % 12;
     return [totalYearsWithRemainder, totalMonthsWithRemainder];
@@ -45,7 +45,7 @@ const DateBox = ({ lang }) => {
       return;
     }
 
-    const datePairs = dateArray.reduce((pairs, _, index, array) => {
+    const datePairsNum = dateArray.reduce((pairs, _, index, array) => {
       if (index % 2 === 0 && array[index + 1]) {
         const startDate = array[index];
         const endDate = array[index + 1];
@@ -86,10 +86,9 @@ const DateBox = ({ lang }) => {
       return pairs;
     }, []);
 
-    const totalExperience = calculateTotalExperience(datePairs);
+    const totalExperience = calculateTotalExperience(datePairsNum);
     setTotalExperience(totalExperience);
-    setTotalExperience(totalExperience);
-    setExperiences(datePairs);
+    setExperiences(datePairsNum);
   };
 
   return (

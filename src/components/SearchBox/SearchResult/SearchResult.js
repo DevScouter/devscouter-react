@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './SearchResult.css';
 import langDict from '../../LangDict';
 
 function SearchResult({ responseMessage, profileLink, lang }) {
-  const [responseText, setResponseText] = useState(langDict[lang].defaultResponseText);
-
   const parseResponse = (responseMessage, lang) => {
     try {
       let { stack, languages, contributions, expertise, years_active } = JSON.parse(responseMessage);
@@ -25,25 +23,18 @@ function SearchResult({ responseMessage, profileLink, lang }) {
     }
   };
 
-  useEffect(() => {
-    if (responseMessage) {
-      const parsedResponse = parseResponse(responseMessage, lang);
-      setResponseText({
-        ...parsedResponse,
-      });
-    }
-  }, [responseMessage, lang]);
+  const parsedResponse = parseResponse(responseMessage, lang);
 
   return (
     <div
       className="search-result"
       data-testid="search-result"
     >
-      <p className="result-text"> {langDict[lang].techStack}: {responseText.techStack}</p>
-      <p className="result-text"> {langDict[lang].expertLanguages}: {responseText.expertLanguages}</p>
-      <p className="result-text"> {langDict[lang].githubActivity}: {responseText.githubActivity}</p>
-      <p className="result-text"> {langDict[lang].expertiseText}: {responseText.expertise}</p>
-      <p className="result-text"> {langDict[lang].yearsActive}: {responseText.yearsActive}</p>
+      <p className="result-text"> {langDict[lang].techStack}: {parsedResponse.techStack}</p>
+      <p className="result-text"> {langDict[lang].expertLanguages}: {parsedResponse.expertLanguages}</p>
+      <p className="result-text"> {langDict[lang].githubActivity}: {parsedResponse.githubActivity}</p>
+      <p className="result-text"> {langDict[lang].expertiseText}: {parsedResponse.expertise}</p>
+      <p className="result-text"> {langDict[lang].yearsActive}: {parsedResponse.yearsActive}</p>
       <p className="result-link"> {langDict[lang].githubProfileLink}:
         <a href={profileLink}> {profileLink} </a>
       </p>

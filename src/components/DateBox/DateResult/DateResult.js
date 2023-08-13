@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './DateResult.css';
 import langDict from '../../LangDict';
 
@@ -20,8 +21,8 @@ const DateResult = ({ experiences, totalExperience, lang }) => {
         <div className="date-result">
             <h2 className="date-result-h2"> {langDict[lang].experiences} </h2>
             <ul className="date-result-ul">
-                {experiences.map((experience, index) => (
-                    <li key={index}>{experience}</li>
+                {experiences.map((experience) => (
+                    <li key={uuidv4()}>{experience}</li>
                 ))}
             </ul>
             <h2 className="date-result-h2"> {langDict[lang].totalExperience}</h2>
