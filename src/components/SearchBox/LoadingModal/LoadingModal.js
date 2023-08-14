@@ -1,10 +1,11 @@
 import React from 'react';
 import './LoadingModal.css';
+import loading from '../../../assets/loading.gif';
 
 const LoadingModal = () => {
     return (
         <div className="loading-modal">
-            <img src="./img/loading.gif" alt="loading" />
+            <img src={loading} alt="loading" />
         </div>
     );
 }

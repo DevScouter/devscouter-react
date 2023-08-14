@@ -56,7 +56,6 @@ This is the React frontend for the DevScouter project.
 
 ## Features to Improve
 
-- Send regular requests using `setInterval` to keep the server awake, instead of using `cron-job.org`
 - Highlight current language in the language selector
 - Save search results according to the user by creating a database and using a login system
 - Refactor code to use unique key for each date pair
